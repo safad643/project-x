@@ -9,6 +9,143 @@
     <title>SubShare - Connect & Save</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* OTP verification styles */
+        .otp-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .otp-fields {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            gap: 0.8rem;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            max-width: 100%; /* Prevent overflow */
+        }
+        
+        .otp-field {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            background-color: var(--input-bg);
+            font-size: 1.5rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+        
+        .otp-field:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(84, 97, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .timer {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .timer i {
+            color: var(--primary-color);
+        }
+        
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .resend-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .resend-btn:disabled {
+            color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+        
+        /* Space between resend and verify buttons */
+        .otp-btn-spacing {
+            margin-top: 2.5rem;
+        }
+        
+        /* Animation styles */
+        .form-slide-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #otp-verification-form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            z-index: 10;
+        }
+        
+        #register-form.sliding-out {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        #otp-verification-form.sliding-in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        /* Responsive OTP adjustments */
+        @media (max-width: 768px) {
+            .otp-field {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .otp-fields {
+                gap: 0.5rem;
+            }
+            
+            .otp-field {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .otp-fields {
+                gap: 0.3rem;
+            }
+            
+            .otp-field {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="theme-toggle">
@@ -31,56 +168,87 @@
                     <button id="register-tab" aria-selected="false">Register</button>
                 </div>
                 
-                <div class="forms-slider">
-                    <div id="login-form" class="form" role="tabpanel" aria-labelledby="login-tab">
-                        <h2>Welcome Back</h2>
-                        <form>
-                            <div class="input-group">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" placeholder="Email" autocomplete="email" required>
-                            </div>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" autocomplete="current-password" required>
-                            </div>
-                            <div class="forgot-password">
-                                <a href="#">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="btn">Login</button>
-                        </form>
+                <div class="form-slide-container">
+                    <div class="forms-slider">
+                        <div id="login-form" class="form" role="tabpanel" aria-labelledby="login-tab">
+                            <h2>Welcome Back</h2>
+                            <form>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" placeholder="Email" autocomplete="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Password" autocomplete="current-password" required>
+                                </div>
+                                <div class="forgot-password">
+                                    <a href="#">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="btn">Login</button>
+                            </form>
+                        </div>
+                        
+                        <div id="register-form" class="form" role="tabpanel" aria-labelledby="register-tab">
+                            <h2>Join Our Community</h2>
+                            <form id="signup-form">
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" placeholder="Full Name" autocomplete="name" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" placeholder="Email" autocomplete="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Confirm Password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-tag"></i>
+                                    <select required>
+                                        <option value="" disabled selected>Subscription Interests</option>
+                                        <option value="streaming">Streaming Services</option>
+                                        <option value="music">Music Services</option>
+                                        <option value="gaming">Gaming Services</option>
+                                        <option value="productivity">Productivity Apps</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn">Create Account</button>
+                            </form>
+                        </div>
                     </div>
                     
-                    <div id="register-form" class="form" role="tabpanel" aria-labelledby="register-tab">
-                        <h2>Join Our Community</h2>
-                        <form>
-                            <div class="input-group">
-                                <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Full Name" autocomplete="name" required>
+                    <div id="otp-verification-form" class="form">
+                        <h2>Verify Your Account</h2>
+                        <p style="margin-bottom: 1.5rem; color: var(--secondary-color);">We've sent a 6-digit verification code to your email. Enter the code below to verify your account.</p>
+                        
+                        <form id="otp-form">
+                            <div class="otp-container">
+                                <div class="otp-fields">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                </div>
+                                
+                                <div class="timer">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="countdown">05:00</span>
+                                </div>
+                                
+                                <button type="button" class="resend-btn" id="resend-btn" disabled>
+                                    Resend Code
+                                </button>
                             </div>
-                            <div class="input-group">
-                                <i class="fas fa-envelope"></i>
-                                <input type="email" placeholder="Email" autocomplete="email" required>
-                            </div>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" autocomplete="new-password" required>
-                            </div>
-                            <div class="input-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Confirm Password" autocomplete="new-password" required>
-                            </div>
-                            <div class="input-group">
-                                <i class="fas fa-tag"></i>
-                                <select required>
-                                    <option value="" disabled selected>Subscription Interests</option>
-                                    <option value="streaming">Streaming Services</option>
-                                    <option value="music">Music Services</option>
-                                    <option value="gaming">Gaming Services</option>
-                                    <option value="productivity">Productivity Apps</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn">Create Account</button>
+                            
+                            <button type="submit" class="btn otp-btn-spacing">Verify Account</button>
                         </form>
                     </div>
                 </div>
@@ -158,5 +326,340 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get forms and elements
+            const signupForm = document.getElementById('signup-form');
+            const otpVerificationForm = document.getElementById('otp-verification-form');
+            const otpForm = document.getElementById('otp-form');
+            const registerForm = document.getElementById('register-form');
+            const formsSlider = document.querySelector('.forms-slider');
+            const formTabs = document.querySelector('.form-tabs');
+            const loginTab = document.getElementById('login-tab');
+
+            // Handle signup form submission
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic form validation
+                    const isValid = validateForm(this);
+                    
+                    if (isValid) {
+                        // Update button state to show loading
+                        const submitBtn = this.querySelector('.btn');
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate form submission with a short delay
+                        setTimeout(() => {
+                            // Get the email for reference in OTP message
+                            const emailField = this.querySelector('input[type="email"]');
+                            const userEmail = emailField ? emailField.value : 'your email';
+                            
+                            // Show success animation for account creation
+                            document.body.classList.add('submission-success');
+                            
+                            // After a short delay, transition to OTP verification
+                            setTimeout(() => {
+                                // Update OTP message with user's email
+                                const otpMessage = otpVerificationForm.querySelector('p');
+                                otpMessage.textContent = `We've sent a 6-digit verification code to ${userEmail}. Enter the code below to verify your account.`;
+                                
+                                // Hide the form tabs
+                                formTabs.style.opacity = '0';
+                                setTimeout(() => {
+                                    formTabs.style.display = 'none';
+                                }, 300);
+                                
+                                // Slide out registration form and slide in OTP form
+                                registerForm.classList.add('sliding-out');
+                                
+                                // After a short delay, show the OTP form
+                                setTimeout(() => {
+                                    // Apply transition class to OTP form to slide it in
+                                    otpVerificationForm.classList.add('sliding-in');
+                                    
+                                    // Focus on first OTP input field
+                                    setTimeout(() => {
+                                        const firstOtpField = otpVerificationForm.querySelector('.otp-field');
+                                        if (firstOtpField) firstOtpField.focus();
+                                        
+                                        // Start the OTP countdown timer
+                                        startOtpTimer();
+                                        
+                                        // Reset the registration form for future use
+                                        signupForm.reset();
+                                        submitBtn.innerHTML = 'Create Account';
+                                        submitBtn.disabled = false;
+                                        
+                                        document.body.classList.remove('submission-success');
+                                    }, 300);
+                                }, 200);
+                            }, 800);
+                        }, 1500);
+                    }
+                });
+            }
+            
+            // Handle OTP form functionality
+            if (otpForm) {
+                const otpFields = otpForm.querySelectorAll('.otp-field');
+                const resendBtn = document.getElementById('resend-btn');
+                
+                // Focus on next input after entering a digit
+                otpFields.forEach((field, index) => {
+                    field.addEventListener('input', function(e) {
+                        // Only allow numbers
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                        
+                        // Move to the next input field if available
+                        if (this.value && index < otpFields.length - 1) {
+                            otpFields[index + 1].focus();
+                        }
+                        
+                        // Check if all fields are filled
+                        const isComplete = Array.from(otpFields).every(field => field.value);
+                        if (isComplete) {
+                            otpForm.querySelector('.btn[type="submit"]').focus();
+                        }
+                    });
+                    
+                    // Handle backspace
+                    field.addEventListener('keydown', function(e) {
+                        if (e.key === 'Backspace' && !this.value && index > 0) {
+                            otpFields[index - 1].focus();
+                        }
+                    });
+                    
+                    // Handle left/right arrow navigation
+                    field.addEventListener('keydown', function(e) {
+                        if (e.key === 'ArrowLeft' && index > 0) {
+                            e.preventDefault();
+                            otpFields[index - 1].focus();
+                        } else if (e.key === 'ArrowRight' && index < otpFields.length - 1) {
+                            e.preventDefault();
+                            otpFields[index + 1].focus();
+                        }
+                    });
+                });
+                
+                // OTP form submission
+                otpForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Clear any previous error messages
+                    clearOtpErrors();
+                    
+                    // Validate all fields are filled
+                    const isComplete = Array.from(otpFields).every(field => field.value);
+                    if (!isComplete) {
+                        // Show error message only on submit
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-message';
+                        errorDiv.textContent = 'Please enter the complete 6-digit code';
+                        errorDiv.id = 'otp-error-message';
+                        
+                        // Add error below OTP fields
+                        const otpContainer = this.querySelector('.otp-container');
+                        otpContainer.appendChild(errorDiv);
+                        
+                        // Focus the first empty field
+                        for (let i = 0; i < otpFields.length; i++) {
+                            if (!otpFields[i].value) {
+                                otpFields[i].focus();
+                                break;
+                            }
+                        }
+                        return;
+                    }
+                    
+                    // Get OTP value
+                    const otp = Array.from(otpFields).map(field => field.value).join('');
+                    
+                    // Update button state
+                    const submitBtn = otpForm.querySelector('.btn[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate verification
+                    setTimeout(() => {
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Verified!';
+                        submitBtn.style.backgroundColor = 'var(--success-color)';
+                        
+                        // Simulate redirect
+                        document.body.classList.add('submission-success');
+                        setTimeout(() => {
+                            alert('Account verified successfully! Redirecting to dashboard...');
+                            // In a real implementation, you would redirect to dashboard
+                            // For now, just reset forms and go back to login view
+                            resetFormsToDefault();
+                        }, 1000);
+                    }, 1500);
+                });
+                
+                // Resend OTP
+                if (resendBtn) {
+                    resendBtn.addEventListener('click', function() {
+                        if (!this.disabled) {
+                            // Reset fields
+                            otpFields.forEach(field => field.value = '');
+                            otpFields[0].focus();
+                            
+                            // Clear any error messages
+                            clearOtpErrors();
+                            
+                            // Reset timer
+                            resetOtpTimer();
+                            
+                            // Show success message
+                            alert('A new verification code has been sent to your email.');
+                        }
+                    });
+                }
+                
+                function clearOtpErrors() {
+                    const errorMessage = document.getElementById('otp-error-message');
+                    if (errorMessage) {
+                        errorMessage.remove();
+                    }
+                }
+            }
+            
+            // Form validation helper function
+            function validateForm(form) {
+                let isValid = true;
+                const inputs = form.querySelectorAll('input, select');
+                
+                inputs.forEach(input => {
+                    if (input.value.trim() === '' && input.required) {
+                        isValid = false;
+                        showError(input, 'This field is required');
+                    } else {
+                        clearError(input);
+                        
+                        // Email validation
+                        if (input.type === 'email' && input.value.trim() !== '' && 
+                            !input.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                            isValid = false;
+                            showError(input, 'Please enter a valid email');
+                        }
+                        
+                        // Password validation
+                        if (form.id === 'signup-form' && input.type === 'password') {
+                            const passwords = form.querySelectorAll('input[type="password"]');
+                            
+                            // Password strength check
+                            if (input === passwords[0] && input.value.length < 8) {
+                                isValid = false;
+                                showError(input, 'Password must be at least 8 characters');
+                            }
+                            
+                            // Confirm password
+                            if (passwords.length > 1 && passwords[0].value !== passwords[1].value) {
+                                isValid = false;
+                                showError(passwords[1], 'Passwords do not match');
+                            }
+                        }
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Error message helpers
+            function showError(input, message) {
+                clearError(input);
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = message;
+                
+                const parentDiv = input.parentElement;
+                parentDiv.appendChild(errorDiv);
+                
+                input.style.borderColor = 'var(--danger-color)';
+            }
+            
+            function clearError(input) {
+                const parentDiv = input.parentElement;
+                const errorMessage = parentDiv.querySelector('.error-message');
+                
+                if (errorMessage) {
+                    parentDiv.removeChild(errorMessage);
+                }
+                
+                input.style.borderColor = '';
+            }
+            
+            // OTP timer functionality
+            let otpCountdownTimer;
+            let timeLeft = 5 * 60; // 5 minutes
+            
+            function startOtpTimer() {
+                // Clear any existing timer
+                if (otpCountdownTimer) clearInterval(otpCountdownTimer);
+                
+                // Reset time
+                timeLeft = 5 * 60;
+                
+                // Get elements
+                const countdownEl = document.getElementById('countdown');
+                const resendBtn = document.getElementById('resend-btn');
+                
+                // Ensure resend button is disabled
+                if (resendBtn) resendBtn.disabled = true;
+                
+                // Update countdown function
+                function updateCountdown() {
+                    if (countdownEl) {
+                        const minutes = Math.floor(timeLeft / 60);
+                        const seconds = timeLeft % 60;
+                        countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                        
+                        if (timeLeft <= 0) {
+                            clearInterval(otpCountdownTimer);
+                            if (resendBtn) resendBtn.disabled = false;
+                            countdownEl.textContent = '00:00';
+                        } else {
+                            timeLeft--;
+                        }
+                    }
+                }
+                
+                // Initial update
+                updateCountdown();
+                
+                // Start timer
+                otpCountdownTimer = setInterval(updateCountdown, 1000);
+            }
+            
+            function resetOtpTimer() {
+                // Reset and restart timer
+                startOtpTimer();
+            }
+            
+            function resetFormsToDefault() {
+                // Reset all forms
+                document.querySelectorAll('form').forEach(form => form.reset());
+                
+                // Clear any timers
+                if (otpCountdownTimer) clearInterval(otpCountdownTimer);
+                
+                // Remove sliding classes
+                otpVerificationForm.classList.remove('sliding-in');
+                registerForm.classList.remove('sliding-out');
+                
+                // Show form tabs with animation
+                formTabs.style.display = 'flex';
+                setTimeout(() => {
+                    formTabs.style.opacity = '1';
+                }, 50);
+                
+                // Switch to login tab
+                loginTab.click();
+            }
+        });
+    </script>
 </body>
 </html> 
