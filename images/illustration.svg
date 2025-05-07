@@ -1,0 +1,194 @@
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient Definitions -->
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6E8EFB" />
+      <stop offset="100%" stop-color="#A777E3" />
+    </linearGradient>
+    
+    <!-- Radial Gradients -->
+    <radialGradient id="glowRadial1" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="rgba(110, 142, 251, 0.6)" />
+      <stop offset="100%" stop-color="rgba(110, 142, 251, 0)" />
+    </radialGradient>
+    
+    <radialGradient id="glowRadial2" cx="0.5" cy="0.5" r="0.6" fx="0.5" fy="0.4">
+      <stop offset="0%" stop-color="rgba(167, 119, 227, 0.6)" />
+      <stop offset="100%" stop-color="rgba(167, 119, 227, 0)" />
+    </radialGradient>
+    
+    <!-- Filters -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feColorMatrix in="blur" type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 2 0 0
+        0 0 0 10 -5
+      " result="glow" />
+      <feComposite in="SourceGraphic" in2="glow" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background Elements -->
+  <circle cx="300" cy="250" r="200" fill="url(#glowRadial1)" opacity="0.3"/>
+  <circle cx="300" cy="250" r="150" fill="url(#glowRadial2)" opacity="0.2"/>
+  
+  <!-- Decorative Circles -->
+  <circle cx="150" cy="150" r="8" fill="#6E8EFB" opacity="0.6">
+    <animate attributeName="r" values="8;12;8" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="450" cy="150" r="5" fill="#A777E3" opacity="0.6">
+    <animate attributeName="r" values="5;8;5" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="150" cy="400" r="6" fill="#A777E3" opacity="0.6">
+    <animate attributeName="r" values="6;10;6" dur="5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="450" cy="400" r="7" fill="#6E8EFB" opacity="0.6">
+    <animate attributeName="r" values="7;11;7" dur="4.5s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Connection Lines -->
+  <g id="connectionLines">
+    <path d="M150 310L250 200" stroke="#A777E3" stroke-width="2" stroke-dasharray="5 5" opacity="0.8">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M300 335L300 265" stroke="#727CF5" stroke-width="2" stroke-dasharray="5 5" opacity="0.8">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M450 310L350 200" stroke="#6E8EFB" stroke-width="2" stroke-dasharray="5 5" opacity="0.8">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Main Device - Smart TV with Glassmorphism -->
+  <g id="smartDevice" filter="url(#glow)">
+    <rect x="180" y="100" width="240" height="150" rx="10" fill="rgba(30, 30, 40, 0.8)" />
+    <rect x="190" y="110" width="220" height="130" rx="5" fill="#6E8EFB" fill-opacity="0.1" />
+    <rect x="230" y="250" width="140" height="10" rx="5" fill="rgba(30, 30, 40, 0.8)" />
+    <rect x="270" y="260" width="60" height="15" rx="5" fill="rgba(30, 30, 40, 0.8)" />
+    
+    <!-- Screen Content -->
+    <rect x="205" y="125" width="190" height="100" rx="3" fill="rgba(255, 255, 255, 0.05)" />
+    <circle cx="300" cy="160" r="30" fill="#6E8EFB" opacity="0.5" />
+    <path d="M285 160L300 175L315 160" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  
+  <!-- People Sharing - Modern Abstract Style -->
+  <!-- Person 1 -->
+  <g id="person1" filter="url(#neonGlow)">
+    <circle cx="150" cy="350" r="40" fill="#A777E3" fill-opacity="0.8" />
+    <circle cx="150" cy="320" r="15" fill="#FFFFFF" />
+    <path d="M120 365C120 345 140 340 150 340C160 340 180 345 180 365" fill="#FFFFFF" />
+    
+    <!-- Device Icon -->
+    <rect x="130" y="365" width="40" height="25" rx="3" fill="#FFFFFF" fill-opacity="0.9" />
+    <circle cx="150" cy="377.5" r="8" fill="#A777E3" />
+    <path d="M145 377.5L150 382.5L155 377.5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+  
+  <!-- Person 2 -->
+  <g id="person2" filter="url(#neonGlow)">
+    <circle cx="450" cy="350" r="40" fill="#6E8EFB" fill-opacity="0.8" />
+    <circle cx="450" cy="320" r="15" fill="#FFFFFF" />
+    <path d="M420 365C420 345 440 340 450 340C460 340 480 345 480 365" fill="#FFFFFF" />
+    
+    <!-- Device Icon -->
+    <rect x="430" y="365" width="40" height="25" rx="3" fill="#FFFFFF" fill-opacity="0.9" />
+    <circle cx="450" cy="377.5" r="8" fill="#6E8EFB" />
+    <path d="M445 377.5L450 382.5L455 377.5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+  
+  <!-- Person 3 -->
+  <g id="person3" filter="url(#neonGlow)">
+    <circle cx="300" cy="380" r="40" fill="#727CF5" fill-opacity="0.8" />
+    <circle cx="300" cy="350" r="15" fill="#FFFFFF" />
+    <path d="M270 395C270 375 290 370 300 370C310 370 330 375 330 395" fill="#FFFFFF" />
+    
+    <!-- Device Icon -->
+    <rect x="280" y="395" width="40" height="25" rx="3" fill="#FFFFFF" fill-opacity="0.9" />
+    <circle cx="300" cy="407.5" r="8" fill="#727CF5" />
+    <path d="M295 407.5L300 412.5L305 407.5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+  
+  <!-- Floating Subscription Icons with Neon Effect -->
+  <!-- Netflix Icon -->
+  <g filter="url(#neonGlow)">
+    <rect x="80" y="130" width="40" height="40" rx="8" fill="#E50914" />
+    <path d="M94 145V155L106 145V155" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+  
+  <!-- Spotify Icon -->
+  <g filter="url(#neonGlow)">
+    <circle cx="500" cy="130" r="20" fill="#1DB954" />
+    <circle cx="500" cy="130" r="10" fill="none" stroke="white" stroke-width="2" />
+    <path d="M493 125L507 135M493 135L507 125" stroke="white" stroke-width="2" stroke-linecap="round" />
+  </g>
+  
+  <!-- YouTube Icon -->
+  <g filter="url(#neonGlow)">
+    <rect x="70" y="230" width="40" height="30" rx="10" fill="#FF0000" />
+    <polygon points="85,235 85,255 100,245" fill="white" />
+  </g>
+  
+  <!-- Apple Icon -->
+  <g filter="url(#neonGlow)">
+    <circle cx="500" cy="230" r="20" fill="#A2AAAD" />
+    <path d="M500 220V210M495 215H505" stroke="white" stroke-width="2" stroke-linecap="round" />
+    <path d="M490 225C490 230 495 235 500 235C505 235 510 230 510 225" stroke="white" stroke-width="2" fill="none" />
+  </g>
+  
+  <!-- Amazon Icon -->
+  <g filter="url(#neonGlow)">
+    <rect x="70" y="300" width="40" height="30" rx="5" fill="#FF9900" />
+    <path d="M80 310L100 310M80 315H100M80 320L90 320" stroke="white" stroke-width="1.5" />
+  </g>
+  
+  <!-- Particles Effect -->
+  <g id="particles">
+    <circle cx="150" cy="100" r="2" fill="white" opacity="0.6">
+      <animate attributeName="cy" from="100" to="400" dur="10s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="10s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="200" cy="400" r="1.5" fill="white" opacity="0.4">
+      <animate attributeName="cy" from="400" to="100" dur="15s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="15s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="400" cy="150" r="2" fill="white" opacity="0.5">
+      <animate attributeName="cy" from="150" to="350" dur="12s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.5;0.2;0.5" dur="12s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="450" cy="300" r="1.5" fill="white" opacity="0.6">
+      <animate attributeName="cy" from="300" to="100" dur="14s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="14s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Connection Concept - Split Equals Save -->
+  <g id="concept" transform="translate(300, 50)" text-anchor="middle">
+    <text font-family="Arial" font-size="14" fill="white" opacity="0.8">
+      <tspan x="0" y="0">Split = Save</tspan>
+    </text>
+    <path d="M-40 10L40 10" stroke="white" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="1 2">
+      <animate attributeName="stroke-dashoffset" from="0" to="6" dur="3s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Coin/Money symbols with shine animation -->
+  <g id="coins">
+    <circle cx="520" cy="220" r="18" fill="#FFD700" fill-opacity="0.7">
+      <animate attributeName="fill-opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <text x="520" y="225" font-family="Arial" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">$</text>
+    
+    <circle cx="540" cy="180" r="13" fill="#FFD700" fill-opacity="0.7">
+      <animate attributeName="fill-opacity" values="0.7;0.9;0.7" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+    <text x="540" y="185" font-family="Arial" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">$</text>
+  </g>
+</svg> 

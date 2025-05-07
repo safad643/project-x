@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SubShare - Connect & Save</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-switch" aria-label="Toggle dark mode">
+            <i class="fas fa-moon dark-icon"></i>
+            <i class="fas fa-sun light-icon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="forms-container">
+            <div class="logo">
+                <h1>SubShare</h1>
+                <p>Connect. Share. Save Together.</p>
+            </div>
+            
+            <div class="forms-wrapper">
+                <div class="form-tabs">
+                    <button id="login-tab" class="active" aria-selected="true">Login</button>
+                    <button id="register-tab" aria-selected="false">Register</button>
+                </div>
+                
+                <div class="forms-slider">
+                    <div id="login-form" class="form" role="tabpanel" aria-labelledby="login-tab">
+                        <h2>Welcome Back</h2>
+                        <form>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" placeholder="Email" autocomplete="email" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Password" autocomplete="current-password" required>
+                            </div>
+                            <div class="forgot-password">
+                                <a href="#">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="btn">Login</button>
+                        </form>
+                    </div>
+                    
+                    <div id="register-form" class="form" role="tabpanel" aria-labelledby="register-tab">
+                        <h2>Join Our Community</h2>
+                        <form>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Full Name" autocomplete="name" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" placeholder="Email" autocomplete="email" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Password" autocomplete="new-password" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Confirm Password" autocomplete="new-password" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-tag"></i>
+                                <select required>
+                                    <option value="" disabled selected>Subscription Interests</option>
+                                    <option value="streaming">Streaming Services</option>
+                                    <option value="music">Music Services</option>
+                                    <option value="gaming">Gaming Services</option>
+                                    <option value="productivity">Productivity Apps</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-login">
+                <p>Or continue with</p>
+                <div class="social-icons">
+                    <button aria-label="Sign in with Google"><i class="fab fa-google"></i></button>
+                    <button aria-label="Sign in with Facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button aria-label="Sign in with Apple"><i class="fab fa-apple"></i></button>
+                </div>
+            </div>
+            
+            <!-- About site button for mobile -->
+            <div class="about-site-container">
+                <button id="about-site-btn" class="btn about-site-btn">
+                    <i class="fas fa-info-circle"></i> About SubShare
+                </button>
+            </div>
+        </div>
+        
+        <div class="info-container">
+            <div class="info-content">
+                <h2>Find Your Perfect Subscription Match</h2>
+                <p>Connect with like-minded people and share subscription costs.</p>
+                <div class="features">
+                    <div class="feature-card" data-id="match">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Match with Others</h3>
+                            <p>Find people with similar subscription interests</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="save">
+                        <div class="feature-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Save Money</h3>
+                            <p>Split costs and save up to 75% on premium subscriptions</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="secure">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Safe & Secure</h3>
+                            <p>Verified profiles and secure payment handling</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="manage">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Easy Management</h3>
+                            <p>Hassle-free subscription sharing with automatic reminders</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Close button for mobile info view -->
+                <button id="close-info-btn" class="btn close-info-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Login
+                </button>
+            </div>
+        </div>
+        
+        <!-- Overlay for mobile feature popups -->
+        <div class="feature-overlay"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
