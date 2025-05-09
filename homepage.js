@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set proper height variables for mobile browsers
     document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     
-    // Theme toggling - reuse from existing script.js
+    // Theme toggling
     initThemeToggle();
     
     // Mobile menu toggle
-    initMobileMenu();
+    initMobileNavigation();
     
     // Subscription filters
     initSubscriptionFilters();
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Theme toggle functionality
 function initThemeToggle() {
     const themeSwitch = document.getElementById('theme-switch');
+    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
     const htmlElement = document.documentElement;
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     
@@ -53,53 +54,96 @@ function initThemeToggle() {
     
     // Theme toggle click event
     if (themeSwitch) {
-        themeSwitch.addEventListener('click', function() {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            applyTheme(newTheme);
-            
-            // Add animation effect on theme change
-            document.body.classList.add('theme-transition');
-            setTimeout(() => {
-                document.body.classList.remove('theme-transition');
-            }, 500);
-        });
+        themeSwitch.addEventListener('click', toggleTheme);
+    }
+    
+    // Mobile theme toggle click event
+    if (mobileThemeSwitch) {
+        mobileThemeSwitch.addEventListener('click', toggleTheme);
+    }
+    
+    function toggleTheme() {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        applyTheme(newTheme);
+        
+        // Add animation effect on theme change
+        document.body.classList.add('theme-transition');
+        setTimeout(() => {
+            document.body.classList.remove('theme-transition');
+        }, 500);
     }
 }
 
-// Mobile menu toggle
-function initMobileMenu() {
+// Mobile navigation functionality
+function initMobileNavigation() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
+    const closeMobileNav = document.querySelector('.close-mobile-nav');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavBackdrop = document.querySelector('.mobile-nav-backdrop');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
     
-    if (mobileMenuToggle && mainNav) {
-        mobileMenuToggle.addEventListener('click', function() {
-            // Toggle active class on nav
-            mainNav.classList.toggle('active');
+    if (mobileMenuToggle && mobileNav && mobileNavBackdrop) {
+        // Toggle mobile menu
+        function toggleMobileMenu(open = null) {
+            const isActive = mobileNav.classList.contains('active');
+            const shouldOpen = open !== null ? open : !isActive;
             
-            // Update toggle icon
-            const icon = this.querySelector('i');
-            if (mainNav.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+            if (!shouldOpen) {
+                // Close menu
+                mobileNav.classList.remove('active');
+                mobileNavBackdrop.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Change icon to bars
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-bars';
+                }
             } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                // Open menu
+                mobileNav.classList.add('active');
+                mobileNavBackdrop.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Change icon to times
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-times';
+                }
+            }
+        }
+        
+        // Toggle menu on button click
+        mobileMenuToggle.addEventListener('click', () => toggleMobileMenu());
+        
+        // Close menu when close button is clicked
+        if (closeMobileNav) {
+            closeMobileNav.addEventListener('click', () => toggleMobileMenu(false));
+        }
+        
+        // Close menu when backdrop is clicked
+        mobileNavBackdrop.addEventListener('click', () => toggleMobileMenu(false));
+        
+        // Close menu when a link is clicked
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => toggleMobileMenu(false));
+        });
+        
+        // Close menu when ESC key is pressed
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                toggleMobileMenu(false);
             }
         });
         
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.mobile-menu-toggle') && 
-                !e.target.closest('.main-nav') && 
-                mainNav.classList.contains('active')) {
-                mainNav.classList.remove('active');
-                
-                // Reset icon
-                const icon = mobileMenuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+        // Close menu when window is resized to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
+                toggleMobileMenu(false);
             }
         });
     }
