@@ -79,6 +79,20 @@
             cursor: not-allowed;
         }
         
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .back-btn:hover {
+            color: var(--primary-color);
+        }
+        
         /* Space between resend and verify buttons */
         .otp-btn-spacing {
             margin-top: 2.5rem;
@@ -103,6 +117,12 @@
         }
         
         #register-form.sliding-out {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        #login-form.sliding-out {
             transform: translateX(-100%);
             opacity: 0;
             transition: transform 0.5s ease, opacity 0.5s ease;
@@ -182,7 +202,7 @@
                                     <input type="password" placeholder="Password" autocomplete="current-password" required>
                                 </div>
                                 <div class="forgot-password">
-                                    <a href="#">Forgot Password?</a>
+                                    <a href="#" id="forgot-password-link">Forgot Password?</a>
                                 </div>
                                 <button type="submit" class="btn">Login</button>
                             </form>
@@ -246,9 +266,13 @@
                                 <button type="button" class="resend-btn" id="resend-btn" disabled>
                                     Resend Code
                                 </button>
+                                
+                                <button type="button" class="back-btn" id="back-to-login-btn">
+                                    <i class="fas fa-arrow-left"></i> Back to Login
+                                </button>
                             </div>
                             
-                            <button type="submit" class="btn otp-btn-spacing">Verify Account</button>
+                            <button type="submit" class="btn otp-btn-spacing" id="otp-submit-btn">Verify Account</button>
                         </form>
                     </div>
                 </div>
@@ -336,6 +360,104 @@
             const formsSlider = document.querySelector('.forms-slider');
             const formTabs = document.querySelector('.form-tabs');
             const loginTab = document.getElementById('login-tab');
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+            const loginForm = document.getElementById('login-form');
+
+            // Handle forgot password link
+            if (forgotPasswordLink) {
+                forgotPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the email input from login form
+                    const emailInput = loginForm.querySelector('input[type="email"]');
+                    
+                    // Check if email is provided
+                    if (!emailInput.value.trim()) {
+                        // Show error if email is missing
+                        showError(emailInput, 'Please enter your email to reset password');
+                        emailInput.focus();
+                        return;
+                    }
+                    
+                    // Validate email format
+                    if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        showError(emailInput, 'Please enter a valid email address');
+                        emailInput.focus();
+                        return;
+                    }
+                    
+                    // Clear any errors
+                    clearError(emailInput);
+                    
+                    // Update OTP form heading and text for password reset
+                    const otpHeading = otpVerificationForm.querySelector('h2');
+                    otpHeading.textContent = 'Reset Password';
+                    
+                    const otpMessage = otpVerificationForm.querySelector('p');
+                    otpMessage.textContent = `We've sent a 6-digit code to ${emailInput.value}. Enter the code below to verify your identity.`;
+                    
+                    // Update button text for password reset
+                    const otpSubmitBtn = otpVerificationForm.querySelector('#otp-submit-btn');
+                    otpSubmitBtn.textContent = 'Reset Password';
+                    
+                    // Hide the form tabs
+                    formTabs.style.opacity = '0';
+                    setTimeout(() => {
+                        formTabs.style.display = 'none';
+                    }, 300);
+                    
+                    // Slide out login form and slide in OTP form
+                    loginForm.classList.add('sliding-out');
+                    
+                    // After a short delay, show the OTP form
+                    setTimeout(() => {
+                        // Apply transition class to OTP form to slide it in
+                        otpVerificationForm.classList.add('sliding-in');
+                        
+                        // Focus on first OTP input field
+                        setTimeout(() => {
+                            const firstOtpField = otpVerificationForm.querySelector('.otp-field');
+                            if (firstOtpField) firstOtpField.focus();
+                            
+                            // Start the OTP countdown timer
+                            startOtpTimer();
+                        }, 300);
+                    }, 200);
+                });
+            }
+
+            // Handle back to login button
+            const backToLoginBtn = document.getElementById('back-to-login-btn');
+            if (backToLoginBtn) {
+                backToLoginBtn.addEventListener('click', function() {
+                    // Reset OTP form
+                    otpVerificationForm.classList.remove('sliding-in');
+                    
+                    // Remove sliding out class from login form
+                    loginForm.classList.remove('sliding-out');
+                    registerForm.classList.remove('sliding-out');
+                    
+                    // Show form tabs with animation
+                    formTabs.style.display = 'flex';
+                    setTimeout(() => {
+                        formTabs.style.opacity = '1';
+                    }, 50);
+                    
+                    // Reset OTP timer if it's running
+                    if (otpCountdownTimer) clearInterval(otpCountdownTimer);
+                    
+                    // Reset OTP fields
+                    const otpFields = document.querySelectorAll('.otp-field');
+                    otpFields.forEach(field => field.value = '');
+                    
+                    // Reset OTP heading and button text for future use
+                    const otpHeading = otpVerificationForm.querySelector('h2');
+                    otpHeading.textContent = 'Verify Your Account';
+                    
+                    const otpSubmitBtn = otpVerificationForm.querySelector('#otp-submit-btn');
+                    otpSubmitBtn.textContent = 'Verify Account';
+                });
+            }
 
             // Handle signup form submission
             if (signupForm) {
@@ -479,6 +601,8 @@
                     
                     // Update button state
                     const submitBtn = otpForm.querySelector('.btn[type="submit"]');
+                    const isPasswordReset = otpVerificationForm.querySelector('h2').textContent === 'Reset Password';
+                    
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
                     submitBtn.disabled = true;
                     
@@ -490,9 +614,12 @@
                         // Simulate redirect
                         document.body.classList.add('submission-success');
                         setTimeout(() => {
-                            alert('Account verified successfully! Redirecting to dashboard...');
-                            // In a real implementation, you would redirect to dashboard
-                            // For now, just reset forms and go back to login view
+                            if (isPasswordReset) {
+                                alert('Password reset link has been sent to your email!');
+                            } else {
+                                alert('Account verified successfully! Redirecting to dashboard...');
+                            }
+                            // Reset forms and go back to login view
                             resetFormsToDefault();
                         }, 1000);
                     }, 1500);
