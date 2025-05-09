@@ -984,12 +984,36 @@ img, svg {
     width: 50px;
     height: 50px;
     border-radius: 10px;
-    background: var(--primary-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 1.5rem;
+}
+
+/* Brand specific logo styles */
+.service-logo.netflix {
+    background: #E50914;
+}
+
+.service-logo.spotify {
+    background: #1DB954;
+}
+
+.service-logo.disney {
+    background: #0063e5;
+}
+
+.service-logo.youtube {
+    background: #FF0000;
+}
+
+.service-logo.xbox {
+    background: #107C10;
+}
+
+.service-logo.adobe {
+    background: #FF0000;
 }
 
 .card-header h3 {
