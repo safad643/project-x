@@ -165,6 +165,31 @@
                 font-size: 1rem;
             }
         }
+
+        /* Form validation styles */
+        .error-input {
+            border-color: var(--danger-color) !important;
+            background-color: rgba(255, 78, 110, 0.05);
+        }
+        
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            padding-left: 2rem;
+            display: block;
+            font-weight: 500;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake-animation {
+            animation: shake 0.5s ease;
+        }
     </style>
 </head>
 <body>
@@ -195,11 +220,11 @@
                             <form>
                                 <div class="input-group">
                                     <i class="fas fa-envelope"></i>
-                                    <input type="email" placeholder="Email" autocomplete="email" required>
+                                    <input type="email" placeholder="Email" autocomplete="email" >
                                 </div>
                                 <div class="input-group">
                                     <i class="fas fa-lock"></i>
-                                    <input type="password" placeholder="Password" autocomplete="current-password" required>
+                                    <input type="password" placeholder="Password" autocomplete="current-password" >
                                 </div>
                                 <div class="forgot-password">
                                     <a href="#" id="forgot-password-link">Forgot Password?</a>
@@ -213,23 +238,23 @@
                             <form id="signup-form">
                                 <div class="input-group">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" placeholder="Full Name" autocomplete="name" required>
+                                    <input type="text" placeholder="Full Name" autocomplete="name">
                                 </div>
                                 <div class="input-group">
                                     <i class="fas fa-envelope"></i>
-                                    <input type="email" placeholder="Email" autocomplete="email" required>
+                                    <input type="email" placeholder="Email" autocomplete="email">
                                 </div>
                                 <div class="input-group">
                                     <i class="fas fa-lock"></i>
-                                    <input type="password" placeholder="Password" autocomplete="new-password" required>
+                                    <input type="password" placeholder="Password" autocomplete="new-password">
                                 </div>
                                 <div class="input-group">
                                     <i class="fas fa-lock"></i>
-                                    <input type="password" placeholder="Confirm Password" autocomplete="new-password" required>
+                                    <input type="password" placeholder="Confirm Password" autocomplete="new-password">
                                 </div>
                                 <div class="input-group">
                                     <i class="fas fa-tag"></i>
-                                    <select required>
+                                    <select>
                                         <option value="" disabled selected>Subscription Interests</option>
                                         <option value="streaming">Streaming Services</option>
                                         <option value="music">Music Services</option>
@@ -464,8 +489,43 @@
                 signupForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    // Basic form validation
-                    const isValid = validateForm(this);
+                    // Basic form validation without relying on required attribute
+                    let isValid = true;
+                    const inputs = this.querySelectorAll('input, select');
+                    
+                    inputs.forEach(input => {
+                        // Check if field is empty
+                        if (input.value.trim() === '') {
+                            isValid = false;
+                            showError(input, 'This field is required');
+                        } else {
+                            clearError(input);
+                            
+                            // Email validation
+                            if (input.type === 'email' && 
+                                !input.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                                isValid = false;
+                                showError(input, 'Please enter a valid email');
+                            }
+                            
+                            // Password validation
+                            if (input.type === 'password') {
+                                const passwords = this.querySelectorAll('input[type="password"]');
+                                
+                                // Password strength check
+                                if (input === passwords[0] && input.value.length < 8) {
+                                    isValid = false;
+                                    showError(input, 'Password must be at least 8 characters');
+                                }
+                                
+                                // Confirm password
+                                if (passwords.length > 1 && passwords[0].value !== passwords[1].value) {
+                                    isValid = false;
+                                    showError(passwords[1], 'Passwords do not match');
+                                }
+                            }
+                        }
+                    });
                     
                     if (isValid) {
                         // Update button state to show loading
@@ -653,72 +713,6 @@
                 }
             }
             
-            // Form validation helper function
-            function validateForm(form) {
-                let isValid = true;
-                const inputs = form.querySelectorAll('input, select');
-                
-                inputs.forEach(input => {
-                    if (input.value.trim() === '' && input.required) {
-                        isValid = false;
-                        showError(input, 'This field is required');
-                    } else {
-                        clearError(input);
-                        
-                        // Email validation
-                        if (input.type === 'email' && input.value.trim() !== '' && 
-                            !input.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                            isValid = false;
-                            showError(input, 'Please enter a valid email');
-                        }
-                        
-                        // Password validation
-                        if (form.id === 'signup-form' && input.type === 'password') {
-                            const passwords = form.querySelectorAll('input[type="password"]');
-                            
-                            // Password strength check
-                            if (input === passwords[0] && input.value.length < 8) {
-                                isValid = false;
-                                showError(input, 'Password must be at least 8 characters');
-                            }
-                            
-                            // Confirm password
-                            if (passwords.length > 1 && passwords[0].value !== passwords[1].value) {
-                                isValid = false;
-                                showError(passwords[1], 'Passwords do not match');
-                            }
-                        }
-                    }
-                });
-                
-                return isValid;
-            }
-            
-            // Error message helpers
-            function showError(input, message) {
-                clearError(input);
-                
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'error-message';
-                errorDiv.textContent = message;
-                
-                const parentDiv = input.parentElement;
-                parentDiv.appendChild(errorDiv);
-                
-                input.style.borderColor = 'var(--danger-color)';
-            }
-            
-            function clearError(input) {
-                const parentDiv = input.parentElement;
-                const errorMessage = parentDiv.querySelector('.error-message');
-                
-                if (errorMessage) {
-                    parentDiv.removeChild(errorMessage);
-                }
-                
-                input.style.borderColor = '';
-            }
-            
             // OTP timer functionality
             let otpCountdownTimer;
             let timeLeft = 5 * 60; // 5 minutes
@@ -785,6 +779,39 @@
                 
                 // Switch to login tab
                 loginTab.click();
+            }
+            
+            // Error message helpers
+            function showError(input, message) {
+                clearError(input);
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = message;
+                
+                const parentDiv = input.parentElement;
+                parentDiv.appendChild(errorDiv);
+                
+                input.classList.add('error-input');
+                input.style.borderColor = 'var(--danger-color)';
+                
+                // Add shake animation
+                input.classList.add('shake-animation');
+                setTimeout(() => {
+                    input.classList.remove('shake-animation');
+                }, 500);
+            }
+            
+            function clearError(input) {
+                const parentDiv = input.parentElement;
+                const errorMessage = parentDiv.querySelector('.error-message');
+                
+                if (errorMessage) {
+                    parentDiv.removeChild(errorMessage);
+                }
+                
+                input.classList.remove('error-input');
+                input.style.borderColor = '';
             }
         });
     </script>
