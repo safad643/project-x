@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Contact Us - SubSplit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Left section with hamburger menu -->
+            <div class="left-section">
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <i class="fas fa-split"></i>
+                    <span>SubSplit</span>
+                </div>
+            </div>
+            
+            <!-- Center section with logo and navigation -->
+            <div class="center-section">
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">Rooms</a></li>
+                        <li><a href="#">My Rooms</a></li>
+                        <li><a href="contact.html" class="active">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Right section with user actions -->
+            <div class="right-section">
+                <div class="user-actions">
+                    <button class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="profile-btn" aria-label="User profile">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Sidebar -->
+    <div class="mobile-nav-backdrop"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-profile">
+                <div class="profile-avatar large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Hello, User</h3>
+                    <p>Manage your account</p>
+                </div>
+            </div>
+            <button class="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="homepage.html"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="#"><i class="fas fa-door-open"></i>Rooms</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+            <div class="mobile-theme-toggle">
+                <span>Dark Mode</span>
+                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+            </div>
+            <div class="mobile-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+       
+
+        <!-- Meet the Creators Section -->
+        <section class="creators-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Meet the Creators</h2>
+                    <p>The team behind SubSplit's innovative subscription-sharing platform</p>
+                </div>
+
+                <div class="creator-cards">
+                    <!-- Creator 1 -->
+                    <div class="creator-card">
+                        <div class="creator-avatar">
+                            <img src="images/default-avatar.png" alt="Creator 1">
+                        </div>
+                        <h3>Jane Smith</h3>
+                        <p class="creator-role">Frontend Developer</p>
+                        <p class="creator-bio">Passionate about creating intuitive and beautiful user experiences that make subscription sharing seamless and enjoyable.</p>
+                        <div class="creator-social">
+                            <a href="#" aria-label="LinkedIn" class="social-icon linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="mailto:jane@subsplit.com" aria-label="Email" class="social-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Creator 2 -->
+                    <div class="creator-card">
+                        <div class="creator-avatar">
+                            <img src="images/default-avatar.png" alt="Creator 2">
+                        </div>
+                        <h3>Alex Johnson</h3>
+                        <p class="creator-role">Backend Engineer</p>
+                        <p class="creator-bio">Architect of our secure and scalable platform that powers the subscription-sharing ecosystem with reliability and performance.</p>
+                        <div class="creator-social">
+                            <a href="#" aria-label="LinkedIn" class="social-icon linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="mailto:alex@subsplit.com" aria-label="Email" class="social-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Creator 3 -->
+                    <div class="creator-card">
+                        <div class="creator-avatar">
+                            <img src="images/default-avatar.png" alt="Creator 3">
+                        </div>
+                        <h3>Mia Chen</h3>
+                        <p class="creator-role">UI/UX Designer</p>
+                        <p class="creator-bio">Creating the visual identity and user experience that makes SubSplit stand out in the subscription-sharing market.</p>
+                        <div class="creator-social">
+                            <a href="#" aria-label="LinkedIn" class="social-icon linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="mailto:mia@subsplit.com" aria-label="Email" class="social-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get in Touch Section -->
+        <section class="get-in-touch-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Get in Touch</h2>
+                    <p>Have questions or feedback? Reach out to our team</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email Us</h3>
+                                <p>For general inquiries:</p>
+                                <a href="mailto:info@subsplit.com">info@subsplit.com</a>
+                                <p>For support:</p>
+                                <a href="mailto:support@subsplit.com">support@subsplit.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Call Us</h3>
+                                <p>Customer Service:</p>
+                                <a href="tel:+1-800-123-4567">+1 (800) 123-4567</a>
+                                <p>Available Monday-Friday, 9AM-5PM EST</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Visit Us</h3>
+                                <p>SubSplit HQ</p>
+                                <address>
+                                    123 Innovation Drive<br>
+                                    Tech Hub, Suite 400<br>
+                                    San Francisco, CA 94107
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="name" placeholder="Full Name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="email" placeholder="Email Address" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <div class="input-group textarea-group">
+                                    <i class="fas fa-comment-alt"></i>
+                                    <textarea id="message" placeholder="Your message here..." rows="4" required></textarea>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3 class="footer-logo">SubSplit</h3>
+                    <p>Connect. Share. Save Together.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">My Rooms</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 SubSplit. All rights reserved.</p>
+                </div>
+                <div class="language-selector">
+                    <select>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="contact.js"></script>
+</body>
+</html> 
