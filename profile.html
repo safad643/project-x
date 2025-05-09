@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SubSplit - Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Left section with hamburger menu -->
+            <div class="left-section">
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <i class="fas fa-split"></i>
+                    <span>SubSplit</span>
+                </div>
+            </div>
+            
+            <!-- Center section with page title -->
+            <div class="center-section">
+                <h1 class="page-title">Profile</h1>
+            </div>
+            
+            <!-- Right section with user actions -->
+            <div class="right-section">
+                <div class="user-actions">
+                    <button class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="profile-btn" aria-label="User profile">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Sidebar -->
+    <div class="mobile-nav-backdrop"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-profile">
+                <div class="profile-avatar large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Hello, User</h3>
+                    <p>Manage your account</p>
+                </div>
+            </div>
+            <button class="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
+            <li><a href="#" class="active"><i class="fas fa-user"></i>Profile</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+            <div class="mobile-theme-toggle">
+                <span>Dark Mode</span>
+                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+            </div>
+            <div class="mobile-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="profile-container">
+            <!-- Profile Overview Section -->
+            <section class="profile-overview-section">
+                <div class="profile-header">
+                    <div class="profile-photo-container">
+                        <div class="profile-photo">
+                            <img src="images/default-avatar.png" alt="Profile Picture" id="profile-image">
+                            <div class="photo-upload-overlay">
+                                <label for="photo-upload" class="upload-icon">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="photo-upload" accept="image/*" hidden>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-header-info">
+                        <h2 class="profile-username">Alex Johnson</h2>
+                        <p class="profile-email">alex.johnson@example.com</p>
+                        <button class="btn btn-outline btn-edit-profile">
+                            <i class="fas fa-pencil-alt"></i>
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Info Section -->
+            <section class="account-info-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Account Information</h3>
+                        <button class="btn-icon btn-edit" data-target="account-info-form">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-display" id="account-info-display">
+                            <div class="info-row">
+                                <span class="info-label">Full Name</span>
+                                <span class="info-value">Alex Johnson</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Email</span>
+                                <span class="info-value">alex.johnson@example.com</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Phone</span>
+                                <span class="info-value">+1 (555) 123-4567</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Password</span>
+                                <span class="info-value">••••••••</span>
+                            </div>
+                        </div>
+                        <form class="info-form hidden" id="account-info-form">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="fullname" placeholder="Full Name" value="Alex Johnson">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" placeholder="Email Address" value="alex.johnson@example.com">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" name="phone" placeholder="Phone Number" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="current_password" placeholder="Current Password">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-key"></i>
+                                <input type="password" name="new_password" placeholder="New Password (leave blank to keep current)">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline btn-cancel" data-target="account-info-form">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscription Summary Section -->
+            <section class="subscription-summary-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>My Subscriptions</h3>
+                        <a href="#" class="card-link">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="subscription-list">
+                            <!-- Netflix Room -->
+                            <div class="subscription-item">
+                                <div class="subscription-logo netflix">
+                                    <i class="fab fa-netflix"></i>
+                                </div>
+                                <div class="subscription-details">
+                                    <h4>Netflix Premium</h4>
+                                    <p class="subscription-plan">Ultra HD Plan</p>
+                                    <div class="subscription-meta">
+                                        <span class="subscription-role admin">Admin</span>
+                                        <span class="subscription-cost">$3.33/month</span>
+                                        <span class="subscription-status active">Active</span>
+                                    </div>
+                                </div>
+                                <div class="subscription-actions">
+                                    <button class="btn-icon">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Spotify Room -->
+                            <div class="subscription-item">
+                                <div class="subscription-logo spotify">
+                                    <i class="fab fa-spotify"></i>
+                                </div>
+                                <div class="subscription-details">
+                                    <h4>Spotify Family</h4>
+                                    <p class="subscription-plan">Family Plan</p>
+                                    <div class="subscription-meta">
+                                        <span class="subscription-role member">Member</span>
+                                        <span class="subscription-cost">$2.50/month</span>
+                                        <span class="subscription-status active">Active</span>
+                                    </div>
+                                </div>
+                                <div class="subscription-actions">
+                                    <button class="btn-icon">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Disney+ Room -->
+                            <div class="subscription-item">
+                                <div class="subscription-logo disney">
+                                    <i class="fab fa-disney-plus"></i>
+                                </div>
+                                <div class="subscription-details">
+                                    <h4>Disney+ Bundle</h4>
+                                    <p class="subscription-plan">Premium Bundle</p>
+                                    <div class="subscription-meta">
+                                        <span class="subscription-role member">Member</span>
+                                        <span class="subscription-cost">$4.99/month</span>
+                                        <span class="subscription-status pending">Pending</span>
+                                    </div>
+                                </div>
+                                <div class="subscription-actions">
+                                    <button class="btn-icon">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Methods Section -->
+            <section class="payment-methods-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Payment Methods</h3>
+                        <button class="btn-icon btn-add">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-methods-list">
+                            <!-- Credit Card -->
+                            <div class="payment-method-item">
+                                <div class="payment-method-icon credit-card">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                                <div class="payment-method-details">
+                                    <h4>Credit Card</h4>
+                                    <p>**** **** **** 4789</p>
+                                    <p class="payment-method-expiry">Expires 05/25</p>
+                                </div>
+                                <div class="payment-method-actions">
+                                    <span class="payment-method-default">Default</span>
+                                    <button class="btn-icon">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- UPI -->
+                            <div class="payment-method-item">
+                                <div class="payment-method-icon upi">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="payment-method-details">
+                                    <h4>UPI</h4>
+                                    <p>alex.johnson@upi</p>
+                                </div>
+                                <div class="payment-method-actions">
+                                    <button class="btn btn-outline btn-sm">Set as Default</button>
+                                    <button class="btn-icon">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings/Preferences Section -->
+            <section class="settings-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Preferences</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="settings-list">
+                            <!-- Notification Preferences -->
+                            <div class="settings-item">
+                                <div class="settings-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive email for updates, payments, and room activities</p>
+                                </div>
+                                <div class="settings-control">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Payment Reminders -->
+                            <div class="settings-item">
+                                <div class="settings-info">
+                                    <h4>Payment Reminders</h4>
+                                    <p>Receive reminders before payment due dates</p>
+                                </div>
+                                <div class="settings-control">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Dark Mode -->
+                            <div class="settings-item">
+                                <div class="settings-info">
+                                    <h4>Dark Mode</h4>
+                                    <p>Switch between light and dark theme</p>
+                                </div>
+                                <div class="settings-control">
+                                    <label class="toggle-switch" id="theme-toggle-switch">
+                                        <input type="checkbox" id="theme-toggle-input">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Privacy -->
+                            <div class="settings-item">
+                                <div class="settings-info">
+                                    <h4>Profile Privacy</h4>
+                                    <p>Control who can see your profile information</p>
+                                </div>
+                                <div class="settings-control">
+                                    <select class="settings-select">
+                                        <option>Room Members Only</option>
+                                        <option>Everyone</option>
+                                        <option>Only Me</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-split"></i>
+                        <span>SubSplit</span>
+                    </div>
+                    <p>Split subscriptions and save money together. Join or create rooms to share your favorite services.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 SubSplit. All rights reserved.</p>
+                </div>
+                <div class="language-selector">
+                    <select>
+                        <option>English</option>
+                        <option>Español</option>
+                        <option>Français</option>
+                        <option>Deutsch</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html> 
