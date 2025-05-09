@@ -244,4 +244,187 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(styleElement);
+
+    // Subscription Modal Functionality
+    const subscriptionItems = document.querySelectorAll('.subscription-item');
+    const subscriptionModal = document.querySelector('.subscription-modal');
+    const subscriptionModalBackdrop = document.querySelector('.subscription-modal-backdrop');
+    const modalCloseBtn = document.querySelector('.modal-close-btn');
+    const btnLeaveRoom = document.querySelector('.btn-leave-room');
+    const btnContactCreator = document.querySelector('.btn-contact-creator');
+    
+    // Setup modal data mapping
+    const modalDataMap = {
+        'netflix': {
+            title: 'Netflix Premium',
+            room: 'Netflix Family',
+            createdBy: 'Sarah Johnson',
+            joined: 'June 15, 2023',
+            members: '4 of 5',
+            status: 'active',
+            share: '$3.33/month',
+            lastPayment: 'May 1, 2023',
+            nextPayment: 'June 1, 2023',
+            paymentMethod: 'Credit Card (**** 4789)'
+        },
+        'spotify': {
+            title: 'Spotify Family',
+            room: 'Spotify Group',
+            createdBy: 'Michael Smith',
+            joined: 'April 10, 2023',
+            members: '5 of 6',
+            status: 'active',
+            share: '$2.50/month',
+            lastPayment: 'May 15, 2023',
+            nextPayment: 'June 15, 2023',
+            paymentMethod: 'Credit Card (**** 4789)'
+        },
+        'disney': {
+            title: 'Disney+ Bundle',
+            room: 'Disney+ Group',
+            createdBy: 'Emma Wilson',
+            joined: 'May 20, 2023',
+            members: '3 of 4',
+            status: 'pending',
+            share: '$4.99/month',
+            lastPayment: 'Pending',
+            nextPayment: 'Upon approval',
+            paymentMethod: 'Credit Card (**** 4789)'
+        }
+    };
+    
+    // Open modal when subscription item is clicked
+    if (subscriptionItems) {
+        subscriptionItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Determine which subscription is clicked
+                let subscriptionType = 'netflix'; // Default
+                if (item.querySelector('.subscription-logo.spotify')) {
+                    subscriptionType = 'spotify';
+                } else if (item.querySelector('.subscription-logo.disney')) {
+                    subscriptionType = 'disney';
+                }
+                
+                // Populate modal with correct data
+                const data = modalDataMap[subscriptionType];
+                document.querySelector('.modal-title').textContent = data.title;
+                document.getElementById('room-name').textContent = data.room;
+                document.getElementById('room-admin').textContent = data.createdBy;
+                document.getElementById('date-joined').textContent = data.joined;
+                document.getElementById('total-members').textContent = data.members;
+                
+                // Handle status badge
+                const statusBadge = document.getElementById('room-status');
+                statusBadge.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                statusBadge.className = 'status-badge ' + data.status;
+                
+                // Payment info
+                document.getElementById('user-share').textContent = data.share;
+                document.getElementById('last-payment').textContent = data.lastPayment;
+                document.getElementById('next-payment').textContent = data.nextPayment;
+                document.getElementById('payment-method').textContent = data.paymentMethod;
+                
+                // Show modal with animation
+                subscriptionModal.style.display = 'block';
+                subscriptionModalBackdrop.style.display = 'block';
+                
+                // Trigger reflow
+                void subscriptionModal.offsetWidth;
+                
+                // Add active classes for animation
+                subscriptionModal.classList.add('active');
+                subscriptionModalBackdrop.classList.add('active');
+                
+                // Prevent body scrolling
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    }
+    
+    // Close modal functionality
+    function closeModal() {
+        subscriptionModal.classList.remove('active');
+        subscriptionModalBackdrop.classList.remove('active');
+        
+        // After animation completes, hide the elements
+        setTimeout(() => {
+            subscriptionModal.style.display = 'none';
+            subscriptionModalBackdrop.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+    
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closeModal);
+    }
+    
+    if (subscriptionModalBackdrop) {
+        subscriptionModalBackdrop.addEventListener('click', closeModal);
+    }
+    
+    // Handle escape key to close modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && subscriptionModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    
+    // Leave Room Button - Show confirmation dialog
+    if (btnLeaveRoom) {
+        btnLeaveRoom.addEventListener('click', function() {
+            // If we had a confirmation dialog in the modal
+            // This would be where we'd show it
+            showLeaveConfirmation();
+        });
+    }
+    
+    // Function to show a leave confirmation dialog
+    function showLeaveConfirmation() {
+        // Check if confirmation dialog already exists, if not create it
+        let leaveConfirmation = document.querySelector('.leave-confirmation');
+        
+        if (!leaveConfirmation) {
+            leaveConfirmation = document.createElement('div');
+            leaveConfirmation.className = 'leave-confirmation';
+            
+            leaveConfirmation.innerHTML = `
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger-color); margin-bottom: 1rem;"></i>
+                <h3>Leave this Room?</h3>
+                <p>You will no longer have access to this subscription and will be removed from the member list.</p>
+                <div class="buttons">
+                    <button class="btn btn-outline btn-cancel">Cancel</button>
+                    <button class="btn btn-danger btn-confirm">Yes, Leave Room</button>
+                </div>
+            `;
+            
+            document.querySelector('.modal-content').appendChild(leaveConfirmation);
+            
+            // Add event listeners to the new buttons
+            const btnCancel = leaveConfirmation.querySelector('.btn-cancel');
+            const btnConfirm = leaveConfirmation.querySelector('.btn-confirm');
+            
+            btnCancel.addEventListener('click', function() {
+                leaveConfirmation.classList.remove('active');
+            });
+            
+            btnConfirm.addEventListener('click', function() {
+                // Here you would handle the actual leaving of the room
+                // For now, we'll just close the modal and show a notification
+                closeModal();
+                showNotification('You have left the room successfully.');
+            });
+        }
+        
+        // Show the confirmation
+        leaveConfirmation.classList.add('active');
+    }
+    
+    // Contact Creator Button
+    if (btnContactCreator) {
+        btnContactCreator.addEventListener('click', function() {
+            // For demo purposes, just show a notification
+            closeModal();
+            showNotification('Message sent to room creator.');
+        });
+    }
 }); 

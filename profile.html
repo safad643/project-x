@@ -28,7 +28,19 @@
             
             <!-- Center section with page title -->
             <div class="center-section">
-                <h1 class="page-title">Profile</h1>
+               
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">Rooms</a></li>
+                        <li><a href="#">My Rooms</a></li>
+                        <li><a href="#" class="active">Profile</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
             
             <!-- Right section with user actions -->
@@ -68,6 +80,7 @@
         <ul class="mobile-nav-links">
             <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
             <li><a href="#"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="#"><i class="fas fa-door-open"></i>Rooms</a></li>
             <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
             <li><a href="#" class="active"><i class="fas fa-user"></i>Profile</a></li>
             <li><a href="#"><i class="fas fa-envelope"></i>Contact</a></li>
@@ -105,10 +118,7 @@
                     <div class="profile-header-info">
                         <h2 class="profile-username">Alex Johnson</h2>
                         <p class="profile-email">alex.johnson@example.com</p>
-                        <button class="btn btn-outline btn-edit-profile">
-                            <i class="fas fa-pencil-alt"></i>
-                            Edit Profile
-                        </button>
+                       
                     </div>
                 </div>
             </section>
@@ -189,15 +199,10 @@
                                     <h4>Netflix Premium</h4>
                                     <p class="subscription-plan">Ultra HD Plan</p>
                                     <div class="subscription-meta">
-                                        <span class="subscription-role admin">Admin</span>
+                                        <span class="subscription-role creator">Creator</span>
                                         <span class="subscription-cost">$3.33/month</span>
                                         <span class="subscription-status active">Active</span>
                                     </div>
-                                </div>
-                                <div class="subscription-actions">
-                                    <button class="btn-icon">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
                                 </div>
                             </div>
 
@@ -215,39 +220,13 @@
                                         <span class="subscription-status active">Active</span>
                                     </div>
                                 </div>
-                                <div class="subscription-actions">
-                                    <button class="btn-icon">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Disney+ Room -->
-                            <div class="subscription-item">
-                                <div class="subscription-logo disney">
-                                    <i class="fab fa-disney-plus"></i>
-                                </div>
-                                <div class="subscription-details">
-                                    <h4>Disney+ Bundle</h4>
-                                    <p class="subscription-plan">Premium Bundle</p>
-                                    <div class="subscription-meta">
-                                        <span class="subscription-role member">Member</span>
-                                        <span class="subscription-cost">$4.99/month</span>
-                                        <span class="subscription-status pending">Pending</span>
-                                    </div>
-                                </div>
-                                <div class="subscription-actions">
-                                    <button class="btn-icon">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Payment Methods Section -->
+            <!-- Payment Methods and Settings in a horizontal layout -->
             <section class="payment-methods-section">
                 <div class="card">
                     <div class="card-header">
@@ -428,6 +407,118 @@
             </div>
         </div>
     </footer>
+
+    <!-- Subscription Details Modal -->
+    <div class="subscription-modal-backdrop"></div>
+    <div class="subscription-modal">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Netflix Premium</h2>
+                <button class="modal-close-btn" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Room Details Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Room Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Room Name:</span>
+                        <span class="detail-value" id="room-name">Netflix Family</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Created By:</span>
+                        <span class="detail-value" id="room-admin">Sarah Johnson</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date Joined:</span>
+                        <span class="detail-value" id="date-joined">June 15, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Members:</span>
+                        <span class="detail-value" id="total-members">4 of 5</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status:</span>
+                        <div class="detail-value">
+                            <span class="status-badge active" id="room-status">Active</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Info Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Payment Information</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Your Share:</span>
+                        <span class="detail-value" id="user-share">$3.33/month</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Last Payment:</span>
+                        <span class="detail-value" id="last-payment">May 1, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Next Payment:</span>
+                        <span class="detail-value" id="next-payment">June 1, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Method:</span>
+                        <span class="detail-value" id="payment-method">Credit Card (**** 4789)</span>
+                    </div>
+                </div>
+                
+                <!-- Members List Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Members</h3>
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Sarah Johnson</span>
+                                <span class="member-badge creator">Creator</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Alex Johnson</span>
+                                <span class="member-badge you">You</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Michael Smith</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Emma Wilson</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer/Actions -->
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-contact-creator">Contact Creator</button>
+                <button class="btn btn-danger btn-leave-room">Leave Room</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script src="profile.js"></script>
