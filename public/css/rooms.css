@@ -1,0 +1,667 @@
+/* Rooms Page Styles */
+
+/* Main Container */
+.rooms-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Create Room Section Styles */
+.create-room-section {
+    margin: 1.5rem 0;
+}
+
+.create-room-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 3rem;
+}
+
+#create-room-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    background: var(--primary-gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+#create-room-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s ease;
+}
+
+#create-room-btn:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+#create-room-btn:hover::before {
+    left: 100%;
+}
+
+#create-room-btn i {
+    font-size: 1rem;
+}
+
+/* Rooms Grid Section */
+.rooms-grid-section {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+
+/* Room Card Styles */
+.room-card {
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.room-card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.room-card:hover .join-btn:not(:hover) {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+}
+
+.room-card:hover .join-btn:not(:hover)::before {
+    width: 0;
+}
+
+.room-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.room-logo.netflix {
+    background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+}
+
+.room-logo.spotify {
+    background: linear-gradient(135deg, #1DB954 0%, #148A41 100%);
+}
+
+.room-logo.disney {
+    background: linear-gradient(135deg, #0063E5 0%, #004DB3 100%);
+}
+
+.room-logo.youtube {
+    background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+}
+
+.room-logo.amazon {
+    background: linear-gradient(135deg, #FF9900 0%, #CC7A00 100%);
+}
+
+.room-logo.hbo {
+    background: linear-gradient(135deg, #5822B4 0%, #42189D 100%);
+}
+
+.room-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.room-info h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.room-name {
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.room-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.members-count,
+.price-per-member {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.members-count i,
+.price-per-member i {
+    font-size: 0.85rem;
+}
+
+.room-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+}
+
+.join-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    min-width: 120px;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transform: none;
+    box-shadow: none;
+}
+
+.join-btn:hover, .join-btn.hover-effect {
+    background-color: var(--primary-color);
+    color: white;
+    transform: none;
+    box-shadow: none;
+}
+
+.join-btn:active {
+    background-color: var(--primary-color);
+    color: white;
+    transform: none;
+}
+
+.join-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    transform: none;
+}
+
+/* Room card hover states */
+.room-card:hover .join-btn:not(:hover) {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    transform: none;
+}
+
+/* Empty State Section Styles */
+.empty-state-section {
+    padding: 3rem 0;
+}
+
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: var(--secondary-color);
+    opacity: 0.6;
+}
+
+.empty-state-container h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.empty-state-container p {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.empty-state-container .btn {
+    padding: 0.75rem 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Improved Modal styles */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-hover);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    overflow: hidden;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 90vh;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--divider);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.2rem;
+}
+
+.modal-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.modal-body form {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.modal-body .input-group {
+    margin-bottom: 0;
+    position: relative;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid var(--input-border);
+}
+
+.modal-body .input-group.error {
+    border-color: var(--danger-color);
+}
+
+.modal-body .input-group i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.modal-body .input-group textarea ~ i {
+    top: 1.75rem;
+    transform: none;
+}
+
+.modal-body .input-group input,
+.modal-body .input-group select,
+.modal-body .input-group textarea {
+    width: 100%;
+    border: none;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    padding: 1rem 1rem 1rem 3rem;
+    border-radius: 0.75rem;
+    outline: none;
+}
+
+.modal-body .input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 3px 10px rgba(84, 97, 255, 0.1);
+}
+
+.modal-body .input-group textarea {
+    padding: 1rem 1rem 1rem 3rem;
+    height: auto;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.error-message-container {
+    height: 24px; /* Fixed height for error messages */
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.error-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.error-message i {
+    font-size: 0.85rem;
+}
+
+.modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.modal-body .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--divider);
+}
+
+.modal-footer .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.modal-footer .btn-outline {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn-outline:hover {
+    background-color: rgba(84, 97, 255, 0.05);
+}
+
+.modal-footer .btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-footer .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s ease;
+}
+
+.modal-footer .btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Toast notification styles */
+.toast-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1002;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-hover);
+    margin-top: 1rem;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    pointer-events: none;
+}
+
+.toast.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.toast-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.success-toast .toast-icon {
+    color: var(--success-color);
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+    .rooms-grid-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .rooms-grid-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .rooms-container {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .room-logo {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .room-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .room-name {
+        font-size: 0.9rem;
+    }
+    
+    .room-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .room-actions {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .join-btn {
+        width: 100%;
+    }
+    
+    .create-room-container {
+        padding: 0 1rem;
+    }
+    
+    #create-room-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .modal-header {
+        padding: 1.25rem;
+    }
+    
+    .modal-body, .modal-footer {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .room-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.25rem;
+    }
+    
+    .room-info {
+        width: 100%;
+    }
+    
+    .room-meta {
+        justify-content: center;
+    }
+    
+    .modal-header {
+        padding: 1rem;
+    }
+    
+    .modal-body, .modal-footer {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column-reverse;
+        gap: 0.75rem;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    .toast-container {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+    }
+    
+    .toast {
+        width: 100%;
+    }
+} 

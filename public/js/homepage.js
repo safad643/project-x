@@ -263,7 +263,8 @@ function initTestimonialSlider() {
 // Scroll animations
 function initScrollAnimations() {
     // Add animation to elements when they come into view
-    const animatedElements = document.querySelectorAll('.subscription-card, .step-card, .testimonial-card');
+    const animatedElements = document.querySelectorAll('.step-card, .testimonial-card');
+    const subscriptionCards = document.querySelectorAll('.subscription-card');
     
     // Create intersection observer
     const observer = new IntersectionObserver((entries) => {
@@ -278,7 +279,7 @@ function initScrollAnimations() {
         threshold: 0.2 // Trigger when 20% of the element is visible
     });
     
-    // Observe all elements
+    // Observe all elements except subscription cards
     animatedElements.forEach(element => {
         observer.observe(element);
         // Add initial state
@@ -287,12 +288,37 @@ function initScrollAnimations() {
         element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
     
+    // Add fade-in only animation for subscription cards
+    const subscriptionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                subscriptionObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    subscriptionCards.forEach(element => {
+        subscriptionObserver.observe(element);
+        // Add initial state - only opacity, no movement
+        element.style.opacity = '0';
+        element.style.transition = 'opacity 0.5s ease';
+    });
+    
     // Add animation to elements once they're visible
     document.addEventListener('scroll', () => {
         animatedElements.forEach(element => {
             if (element.classList.contains('animate')) {
                 element.style.opacity = '1';
                 element.style.transform = 'translateY(0)';
+            }
+        });
+        
+        subscriptionCards.forEach(element => {
+            if (element.classList.contains('animate')) {
+                element.style.opacity = '1';
             }
         });
     }, { passive: true });

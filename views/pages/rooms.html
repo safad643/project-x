@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SubSplit - Available Rooms</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="rooms.css">
+    <link rel="stylesheet" href="rooms-override.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Left section with hamburger menu -->
+            <div class="left-section">
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <i class="fas fa-split"></i>
+                    <span>SubSplit</span>
+                </div>
+            </div>
+            
+            <!-- Center section with page title -->
+            <div class="center-section">
+                
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="subscriptions.html">Subscriptions</a></li>
+                        <li><a href="rooms.html" class="active">Rooms</a></li>
+                        <li><a href="#">My Rooms</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Right section with user actions -->
+            <div class="right-section">
+                <div class="user-actions">
+                    <button class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="profile-btn" aria-label="User profile">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Sidebar -->
+    <div class="mobile-nav-backdrop"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-profile">
+                <div class="profile-avatar large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Hello, User</h3>
+                    <p>Manage your account</p>
+                </div>
+            </div>
+            <button class="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="homepage.html"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="subscriptions.html"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="rooms.html" class="active"><i class="fas fa-door-open"></i>Rooms</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i>Profile</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+            <div class="mobile-theme-toggle">
+                <span>Dark Mode</span>
+                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+            </div>
+            <div class="mobile-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="rooms-container">
+            <!-- Rooms Grid Section - Only showing open rooms -->
+            <section class="rooms-grid-section">
+                <!-- Netflix Room Card -->
+                <div class="room-card" data-status="open">
+                    <div class="room-logo netflix">
+                        <i class="fab fa-netflix"></i>
+                    </div>
+                    <div class="room-info">
+                        <h3>Netflix Premium</h3>
+                        <p class="room-name">Netflix Family</p>
+                        <div class="room-meta">
+                            <div class="members-count">
+                                <i class="fas fa-users"></i>
+                                <span>3/4 members</span>
+                            </div>
+                            <div class="price-per-member">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$3.75/month</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="btn btn-outline join-btn">
+                                Join Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spotify Room Card -->
+                <div class="room-card" data-status="open">
+                    <div class="room-logo spotify">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <div class="room-info">
+                        <h3>Spotify Family</h3>
+                        <p class="room-name">Music Lovers</p>
+                        <div class="room-meta">
+                            <div class="members-count">
+                                <i class="fas fa-users"></i>
+                                <span>4/6 members</span>
+                            </div>
+                            <div class="price-per-member">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$2.50/month</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="btn btn-outline join-btn">
+                                Join Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disney+ Room Card -->
+                <div class="room-card" data-status="open">
+                    <div class="room-logo disney">
+                        <i class="fab fa-discord"></i> <!-- Using discord as placeholder for Disney+ -->
+                    </div>
+                    <div class="room-info">
+                        <h3>Disney+ Premium</h3>
+                        <p class="room-name">Disney Fans</p>
+                        <div class="room-meta">
+                            <div class="members-count">
+                                <i class="fas fa-users"></i>
+                                <span>2/4 members</span>
+                            </div>
+                            <div class="price-per-member">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$2.25/month</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="btn btn-outline join-btn">
+                                Join Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Create Room Button (now at bottom) -->
+            <section class="create-room-section">
+                <div class="create-room-container">
+                    <button id="create-room-btn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create Room
+                    </button>
+                </div>
+            </section>
+
+            <!-- Empty State Section (Initially Hidden) -->
+            <section class="empty-state-section hidden" id="empty-state">
+                <div class="empty-state-container">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <h3>No rooms available right now</h3>
+                    <p>Be the first to create one!</p>
+                    <button id="empty-create-room-btn" class="btn btn-primary">Create Room</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-split"></i>
+                        <span>SubSplit</span>
+                    </div>
+                    <p>Split subscriptions and save money together. Join or create rooms to share your favorite services.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">All Subscriptions</a></li>
+                        <li><a href="#">Join a Room</a></li>
+                        <li><a href="#">Create a Room</a></li>
+                        <li><a href="#">Manage Payments</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 SubSplit. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Create Room Modal -->
+    <div class="modal-backdrop" id="create-room-backdrop"></div>
+    <div class="modal" id="create-room-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create a New Room</h3>
+                <button class="modal-close-btn" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="create-room-form" novalidate>
+                    <div class="input-group">
+                        <i class="fas fa-tv"></i>
+                        <select id="subscription-type" name="subscription-type">
+                            <option value="" selected disabled>Select Subscription Type</option>
+                            <option value="netflix">Netflix</option>
+                            <option value="spotify">Spotify</option>
+                            <option value="disney">Disney+</option>
+                            <option value="youtube">YouTube Premium</option>
+                            <option value="amazon">Amazon Prime</option>
+                            <option value="hbo">HBO Max</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-users"></i>
+                        <input type="number" id="max-members" name="max-members" min="2" max="10" placeholder="Maximum Members">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-dollar-sign"></i>
+                        <input type="number" id="price-per-member" name="price-per-member" min="0.01" step="0.01" placeholder="Price per Member ($/month)">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-align-left"></i>
+                        <textarea id="room-description" name="room-description" placeholder="Room Description (optional)" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-room-btn">Cancel</button>
+                <button class="btn btn-primary" id="submit-room-btn">Create Room</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message Toast -->
+    <div class="toast-container">
+        <div class="toast success-toast" id="success-toast">
+            <div class="toast-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="toast-content">
+                <p>Room Created Successfully!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="rooms.js"></script>
+</body>
+</html> 

@@ -1,72 +1,98 @@
-# SubSplit - Subscription Sharing Platform
+# Express.js Web Application
 
-A modern, responsive web platform for sharing subscription services with friends, family, or other users.
+A properly structured Express.js web application with organized folders and files.
 
-## Project Overview
+## Project Structure
 
-SubSplit allows users to:
-- Create or join subscription sharing "rooms"
-- Split the costs of premium subscriptions
-- Manage multiple subscription services in one place
-- Keep track of payments and membership status
+```
+├── app.js                 # Main Express application
+├── server.js              # Server entry point
+├── package.json           # Dependencies and scripts
+├── .env                   # Environment variables
+├── .env.example           # Example environment file
+├── .gitignore            # Git ignore rules
+├── README.md             # Project documentation
+│
+├── src/                   # Source code
+│   ├── config/           # Configuration files
+│   │   ├── database.js
+│   │   └── config.js
+│   ├── middleware/       # Custom middleware
+│   │   ├── auth.js
+│   │   ├── errorHandler.js
+│   │   └── validation.js
+│   ├── controllers/      # Route controllers
+│   │   ├── index.js
+│   │   └── userController.js
+│   ├── routes/           # Route definitions
+│   │   ├── index.js
+│   │   └── userRoutes.js
+│   ├── models/           # Data models
+│   │   └── User.js
+│   ├── services/         # Business logic
+│   │   └── userService.js
+│   └── utils/            # Utility functions
+│       └── helpers.js
+│
+├── public/               # Static files
+│   ├── css/             # Stylesheets
+│   ├── js/              # JavaScript files
+│   ├── images/          # Image assets
+│   ├── fonts/           # Font files
+│   ├── uploads/         # User uploads
+│   └── uploads/         # User uploads
+│
+├── views/                # Template files
+│   ├── pages/           # Page templates
+│   ├── partials/        # Reusable components
+│   ├── layouts/         # Layout templates
+│   └── components/      # Custom components
+│
+├── database/             # Database related files
+│   ├── migrations/      # Database migrations
+│   └── seeds/           # Seed data
+│
+├── tests/                # Test files
+│   ├── unit/            # Unit tests
+│   ├── integration/     # Integration tests
+│   └── e2e/             # End-to-end tests
+│
+└── docs/                 # Documentation
+    ├── api/             # API documentation
+    └── setup/           # Setup guides
+```
 
-## Pages and Features
+## Getting Started
 
-### Current Pages:
-- Homepage
-- Authentication (Sign up/Sign in)
-- Profile Page (Complete)
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Planned Pages:
-- Subscription Marketplace
-- Room Details
-- Subscription Management
-- Payment Hub
-- Settings
+2. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-## Profile Page Features
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-The profile page includes:
-- User information management
-- Profile picture upload functionality
-- Subscription summary with status indicators
-- Payment methods management
-- Notification and privacy preferences
+## Available Scripts
 
-## Tech Stack
+- `npm start` - Start the production server
+- `npm run dev` - Start the development server with nodemon
+- `npm test` - Run tests
 
-- HTML5
-- CSS3 (with CSS variables for theming)
-- JavaScript (Vanilla)
-- Font Awesome for icons
+## Features
 
-## Setup Instructions
-
-1. Clone the repository
-2. Open `index.html` to view the authentication page
-3. Open `homepage.html` to view the main user dashboard
-4. Open `profile.html` to view the profile page
-
-## Design System
-
-The project uses a consistent design system with:
-- CSS variables for colors and theming
-- Dark/Light mode toggle
-- Responsive design for all device sizes
-- Card-based UI components
-- Consistent spacing and typography
-
-## Browser Compatibility
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
+- Proper folder structure for scalability
+- Separation of concerns (MVC pattern)
+- Middleware for authentication and error handling
+- Static file serving
+- Template engine support
+- Database integration ready
+- Testing setup
+- Documentation structure 

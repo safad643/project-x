@@ -1,0 +1,27 @@
+/* Button overrides to prevent movement */
+.btn.join-btn,
+.btn-outline.join-btn {
+    transform: none !important;
+    position: relative !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.btn.join-btn:hover,
+.btn-outline.join-btn:hover,
+.btn.join-btn:active,
+.btn-outline.join-btn:active,
+.btn.join-btn:focus,
+.btn-outline.join-btn:focus {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure these styles take precedence over global ones */
+.room-card .room-actions .join-btn {
+    transform: none !important;
+}
+
+.room-card:hover .room-actions .join-btn:not(:hover) {
+    transform: none !important;
+} 

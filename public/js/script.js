@@ -27,18 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Theme toggle click event
-    themeSwitch.addEventListener('click', function() {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        applyTheme(newTheme);
-        
-        // Add animation effect on theme change
-        document.body.classList.add('theme-transition');
-        setTimeout(() => {
-            document.body.classList.remove('theme-transition');
-        }, 500);
-    });
+    if (themeSwitch) {
+        themeSwitch.addEventListener('click', function() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            applyTheme(newTheme);
+            
+            // Add animation effect on theme change
+            document.body.classList.add('theme-transition');
+            setTimeout(() => {
+                document.body.classList.remove('theme-transition');
+            }, 500);
+        });
+    }
 
     // Tab switching functionality with smooth sliding
     const loginTab = document.getElementById('login-tab');
@@ -47,34 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const formsSlider = document.querySelector('.forms-slider');
     
     // Switch to login tab
-    loginTab.addEventListener('click', function() {
-        switchTab('login');
-    });
+    if (loginTab && registerTab && formTabs && formsSlider) {
+        loginTab.addEventListener('click', function() {
+            switchTab('login');
+        });
 
-    // Switch to register tab
-    registerTab.addEventListener('click', function() {
-        switchTab('register');
-    });
-    
-    function switchTab(tabName) {
-        if (tabName === 'login') {
-            loginTab.classList.add('active');
-            registerTab.classList.remove('active');
-            loginTab.setAttribute('aria-selected', 'true');
-            registerTab.setAttribute('aria-selected', 'false');
-            
-            // Smooth sliding effect
-            formsSlider.classList.remove('register');
-            formTabs.classList.remove('register');
-        } else {
-            registerTab.classList.add('active');
-            loginTab.classList.remove('active');
-            registerTab.setAttribute('aria-selected', 'true');
-            loginTab.setAttribute('aria-selected', 'false');
-            
-            // Smooth sliding effect
-            formsSlider.classList.add('register');
-            formTabs.classList.add('register');
+        // Switch to register tab
+        registerTab.addEventListener('click', function() {
+            switchTab('register');
+        });
+        
+        function switchTab(tabName) {
+            if (tabName === 'login') {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginTab.setAttribute('aria-selected', 'true');
+                registerTab.setAttribute('aria-selected', 'false');
+                
+                // Smooth sliding effect
+                formsSlider.classList.remove('register');
+                formTabs.classList.remove('register');
+            } else {
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                registerTab.setAttribute('aria-selected', 'true');
+                loginTab.setAttribute('aria-selected', 'false');
+                
+                // Smooth sliding effect
+                formsSlider.classList.add('register');
+                formTabs.classList.add('register');
+            }
         }
     }
 
@@ -198,28 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show loading state
                 submitBtn.disabled = true;
                 
-                // Here you would normally submit the form or make an API call
+                // Show successful submission indicator
+                document.body.classList.add('submission-success');
+                
+                // Simulate form submission/API call
                 setTimeout(() => {
-                    // Simulate successful submission
-                    document.body.classList.add('submission-success');
-                    
-                    setTimeout(() => {
-                        alert(form.id === 'login-form' ? 'Login successful!' : 'Registration successful!');
-                        form.reset();
-                        submitBtn.innerHTML = form.id === 'login-form' ? 'Login' : 'Create Account';
-                        submitBtn.style.backgroundColor = '';
-                        submitBtn.disabled = false;
-                        document.body.classList.remove('submission-success');
-                    }, 500);
-                }, 1000);
-            } else {
-                // Scroll to the first error on mobile
-                if (window.innerWidth <= 768) {
-                    const firstError = form.querySelector('.error-message');
-                    if (firstError) {
-                        firstError.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
+                    // Redirect user or show next step
+                    window.location.href = 'homepage.html';
+                }, 1500);
             }
         });
     });

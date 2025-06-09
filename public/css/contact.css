@@ -810,7 +810,6 @@ body.submission-success::after {
 }
 
 .creator-card:hover {
-    transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -906,7 +905,6 @@ body.submission-success::after {
 }
 
 .social-icon:hover {
-    transform: translateY(-5px);
 }
 
 .social-icon:hover::before {
@@ -966,7 +964,6 @@ body.submission-success::after {
 }
 
 .contact-item:hover {
-    transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
 }
 

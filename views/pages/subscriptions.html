@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SubSplit - My Subscriptions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="subscriptions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Left section with hamburger menu -->
+            <div class="left-section">
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <i class="fas fa-split"></i>
+                    <span>SubSplit</span>
+                </div>
+            </div>
+            
+            <!-- Center section with page title -->
+            <div class="center-section">
+                
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="subscriptions.html" class="active">Subscriptions</a></li>
+                        <li><a href="#">Rooms</a></li>
+                        <li><a href="#">My Rooms</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Right section with user actions -->
+            <div class="right-section">
+                <div class="user-actions">
+                    <button class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <button class="profile-btn" aria-label="User profile">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Sidebar -->
+    <div class="mobile-nav-backdrop"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-profile">
+                <div class="profile-avatar large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Hello, User</h3>
+                    <p>Manage your account</p>
+                </div>
+            </div>
+            <button class="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="homepage.html"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="subscriptions.html" class="active"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="#"><i class="fas fa-door-open"></i>Rooms</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i>Profile</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+            <div class="mobile-theme-toggle">
+                <span>Dark Mode</span>
+                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+            </div>
+            <div class="mobile-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="subscriptions-container">
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-container">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="expired">Expired</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscriptions Grid Section -->
+            <section class="subscriptions-grid-section">
+                <!-- Netflix Subscription Card -->
+                <div class="subscription-card" data-status="active">
+                    <div class="subscription-logo netflix">
+                        <i class="fab fa-netflix"></i>
+                    </div>
+                    <div class="subscription-info">
+                        <h3>Netflix Premium</h3>
+                        <p class="room-name">Netflix Family</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$3.33/month</span>
+                            <span class="subscription-date">Joined: May 15, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge active">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spotify Subscription Card -->
+                <div class="subscription-card" data-status="active">
+                    <div class="subscription-logo spotify">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <div class="subscription-info">
+                        <h3>Spotify Family</h3>
+                        <p class="room-name">Music Lovers</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$2.50/month</span>
+                            <span class="subscription-date">Joined: June 2, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge active">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disney+ Subscription Card -->
+                <div class="subscription-card" data-status="active">
+                    <div class="subscription-logo disney">
+                        <i class="fab fa-discord"></i> <!-- Using discord as placeholder for Disney+ -->
+                    </div>
+                    <div class="subscription-info">
+                        <h3>Disney+ Premium</h3>
+                        <p class="room-name">Disney Fans</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$2.25/month</span>
+                            <span class="subscription-date">Joined: July 10, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge active">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YouTube Premium Subscription Card -->
+                <div class="subscription-card" data-status="active">
+                    <div class="subscription-logo youtube">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="subscription-info">
+                        <h3>YouTube Premium</h3>
+                        <p class="room-name">No Ads Club</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$2.99/month</span>
+                            <span class="subscription-date">Joined: April 5, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge active">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amazon Prime Subscription Card -->
+                <div class="subscription-card" data-status="expired">
+                    <div class="subscription-logo amazon">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <div class="subscription-info">
+                        <h3>Amazon Prime</h3>
+                        <p class="room-name">Prime Sharers</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$3.75/month</span>
+                            <span class="subscription-date">Joined: Jan 15, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge expired">Expired</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HBO Max Subscription Card -->
+                <div class="subscription-card" data-status="expired">
+                    <div class="subscription-logo hbo">
+                        <i class="fas fa-film"></i> <!-- Using film as placeholder for HBO -->
+                    </div>
+                    <div class="subscription-info">
+                        <h3>HBO Max</h3>
+                        <p class="room-name">HBO Group</p>
+                        <div class="subscription-meta">
+                            <span class="subscription-amount">$4.20/month</span>
+                            <span class="subscription-date">Joined: Feb 20, 2023</span>
+                        </div>
+                        <div class="subscription-status">
+                            <span class="status-badge expired">Expired</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Empty State Section (Initially Hidden) -->
+            <section class="empty-state-section hidden" id="empty-state">
+                <div class="empty-state-container">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-tv-slash"></i>
+                    </div>
+                    <h3>No subscriptions found</h3>
+                    <p>You don't have any subscriptions in this category yet.</p>
+                    <a href="#" class="btn btn-primary">Browse Subscriptions</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-split"></i>
+                        <span>SubSplit</span>
+                    </div>
+                    <p>Split subscriptions and save money together. Join or create rooms to share your favorite services.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 SubSplit. All rights reserved.</p>
+                </div>
+                <div class="language-selector">
+                    <select>
+                        <option>English</option>
+                        <option>Español</option>
+                        <option>Français</option>
+                        <option>Deutsch</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Subscription Details Modal -->
+    <div class="subscription-modal-backdrop"></div>
+    <div class="subscription-modal">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Netflix Premium</h2>
+                <button class="modal-close-btn" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Room Details Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Room Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Room Name:</span>
+                        <span class="detail-value" id="room-name">Netflix Family</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Created By:</span>
+                        <span class="detail-value" id="room-admin">Sarah Johnson</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date Joined:</span>
+                        <span class="detail-value" id="date-joined">June 15, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Members:</span>
+                        <span class="detail-value" id="total-members">4 of 5</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status:</span>
+                        <div class="detail-value">
+                            <span class="status-badge active" id="room-status">Active</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Info Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Payment Information</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Your Share:</span>
+                        <span class="detail-value" id="user-share">$3.33/month</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Last Payment:</span>
+                        <span class="detail-value" id="last-payment">May 1, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Next Payment:</span>
+                        <span class="detail-value" id="next-payment">June 1, 2023</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Method:</span>
+                        <span class="detail-value" id="payment-method">Credit Card (**** 4789)</span>
+                    </div>
+                </div>
+                
+                <!-- Members List Section -->
+                <div class="modal-section">
+                    <h3 class="section-title">Members</h3>
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Sarah Johnson</span>
+                                <span class="member-badge creator">Creator</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Alex Johnson</span>
+                                <span class="member-badge you">You</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Michael Smith</span>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="member-info">
+                                <span class="member-name">Emma Wilson</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer/Actions -->
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-contact-creator">Contact Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="subscriptions.js"></script>
+</body>
+</html> 

@@ -942,7 +942,6 @@ img, svg {
 }
 
 .subscription-card:hover {
-    transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -1134,7 +1133,6 @@ img, svg {
 }
 
 .step-card:hover {
-    transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -1209,7 +1207,6 @@ img, svg {
 }
 
 .testimonial-card:hover {
-    transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
 

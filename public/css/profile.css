@@ -106,8 +106,9 @@
     background-color: var(--card-bg);
     border-radius: 1rem;
     box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -318,13 +319,12 @@
     padding: 1rem;
     border-radius: 0.75rem;
     background-color: var(--input-bg);
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 .subscription-item:hover {
     box-shadow: var(--shadow);
- 
 }
 
 .subscription-logo {
@@ -438,11 +438,10 @@
     padding: 1rem;
     border-radius: 0.75rem;
     background-color: var(--input-bg);
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .payment-method-item:hover {
-    
     box-shadow: var(--shadow);
 }
 
