@@ -1,6 +1,3 @@
-# Express.js Web Application
-
-A properly structured Express.js web application with organized folders and files.
 
 ## Project Structure
 
@@ -28,11 +25,11 @@ A properly structured Express.js web application with organized folders and file
 │   │   ├── index.js
 │   │   └── userRoutes.js
 │   ├── models/           # Data models
-│   │   └── User.js
-│   ├── services/         # Business logic
-│   │   └── userService.js
-│   └── utils/            # Utility functions
-│       └── helpers.js
+│       └── User.js
+│   
+│   
+│   
+│       
 │
 ├── public/               # Static files
 │   ├── css/             # Stylesheets
@@ -47,52 +44,4 @@ A properly structured Express.js web application with organized folders and file
 │   ├── partials/        # Reusable components
 │   ├── layouts/         # Layout templates
 │   └── components/      # Custom components
-│
-├── database/             # Database related files
-│   ├── migrations/      # Database migrations
-│   └── seeds/           # Seed data
-│
-├── tests/                # Test files
-│   ├── unit/            # Unit tests
-│   ├── integration/     # Integration tests
-│   └── e2e/             # End-to-end tests
-│
-└── docs/                 # Documentation
-    ├── api/             # API documentation
-    └── setup/           # Setup guides
 ```
-
-## Getting Started
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Set up environment variables:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-## Available Scripts
-
-- `npm start` - Start the production server
-- `npm run dev` - Start the development server with nodemon
-- `npm test` - Run tests
-
-## Features
-
-- Proper folder structure for scalability
-- Separation of concerns (MVC pattern)
-- Middleware for authentication and error handling
-- Static file serving
-- Template engine support
-- Database integration ready
-- Testing setup
-- Documentation structure 
