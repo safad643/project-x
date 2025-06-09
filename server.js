@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
+const userRoute =require('./src/routes/userRoutes')
+const connectDB =require('./src/config/database')
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+connectDB();
 
 // Static files - serve all static assets from public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -15,7 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-app.use('/', require('./src/routes/index'));
+app.use('/', userRoute);
 
 
 app.listen(PORT, () => {
