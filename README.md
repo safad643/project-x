@@ -2,7 +2,6 @@
 ## Project Structure
 
 ```
-├── app.js                 # Main Express application
 ├── server.js              # Server entry point
 ├── package.json           # Dependencies and scripts
 ├── .env                   # Environment variables
