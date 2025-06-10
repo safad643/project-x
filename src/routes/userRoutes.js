@@ -3,9 +3,13 @@
 
 
 
+const authController =require('../controllers/userController')
 
 
-router.get("/signup", );
-router.post("/signup", );
-router.get("/signin", );
-router.post("/signin", );
+router.get("/index-view", authController.loadSignUp);
+router.post("/index-view", authController.signUp);
+router.get("/homepage",authController.loadHome)
+
+
+
+module.exports = router;
