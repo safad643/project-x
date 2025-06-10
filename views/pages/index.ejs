@@ -506,6 +506,7 @@
 
       axios.defaults.baseURL = API_BASE_URL;
       axios.defaults.headers.common["Content-Type"] = "application/json";
+      axios.defaults.withCredentials = true;
 
       let currentUserEmail = "";
       let isPasswordReset = false;
@@ -573,7 +574,7 @@
                 submitBtn.style.backgroundColor = "var(--success-color)";
 
                 setTimeout(() => {
-                  window.location.href = "/homepage";
+                  window.location.href = "/";
                 }, 1500);
               } else {
                 console.log("erro");
@@ -831,7 +832,7 @@
                   }, 1000);
                 } else {
                   setTimeout(() => {
-                    window.location.href = "/homepage";
+                    window.location.href = "/";
                   }, 1000);
                 }
               } else {

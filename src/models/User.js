@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     
   },
+  email_verifired:{
+    type:Boolean,
+    default:false
+  },
+
   isActive:{
  type:Boolean,
  default:true

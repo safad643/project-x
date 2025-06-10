@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const userSchema = require("../models/User");
 const { generateOTPToken } = require("../config/jwt");
+const jwt = require('jsonwebtoken');
+
 const { verifyOTPToken } = require('../config/jwt');
 const cookieParser = require("cookie-parser");
 
@@ -16,15 +18,43 @@ const loadHome = (req, res) => {
 
 const signUp = async (req, res) => {
   try {
-    console.log("jjjj");
+  
 
     if (req.body.name === "login") {
       console.log("login");
 
+       const { email, password } = req.body;
+    
+  
+    const user = await userSchema.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+   
+    const isMatch = await bcrypt.compare(password,user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    
+   
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
+
+    res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  });
+
       return res.status(200).json({
         success: true,
         message: "Login successful",
-        token: "aswin",
+        token
       });
     }
 
@@ -54,8 +84,9 @@ const signUp = async (req, res) => {
 
      
 
-        res.cookie('otpToken', otpToken, {
+      res.cookie('otpToken', otpToken, {
       httpOnly: true,
+      email:email,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 5 * 60 * 1000 
@@ -80,7 +111,7 @@ const signUp = async (req, res) => {
 
     if (!otpToken) {
       req.flash("error", "OTP session expired. Please try again.");
-      return res.status(400).redirect("/signup");
+      return res.status(400).redirect("/index-view");
     }
 
     
@@ -90,9 +121,10 @@ const signUp = async (req, res) => {
       req.flash("error", "Invalid or expired OTP token.");
       return res.status(400).redirect("/signup");
     }
-
+ 
     const { email, otp: storedOTP, type } = decoded;
-console.log(userEnteredOTP,storedOTP);
+console.log(userEnteredOTP,storedOTP,email);
+
 
    
     if (userEnteredOTP != storedOTP) {
@@ -102,10 +134,25 @@ console.log(userEnteredOTP,storedOTP);
       return res.status(400).redirect("/index-view");
     }
 
-   
+    
+  const User = await userSchema.findOne({ email });
+  console.log(User);
+  User.email_verifired = true
+    await User.save()
   
     res.clearCookie('otpToken');
 
+        const token = jwt.sign(
+        { id: User._id },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
+      );
+      res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
 
       return res.status(200).json({
         success: true,
@@ -174,12 +221,17 @@ const resendOtp = async (req, res) => {
   res.status(302).redirect("/otp");
 };
 
+
+const logOut = async(req,res)=>{
+    res.clearCookie("token");
+  res.redirect("/index-view");
+}
 module.exports = {
   loadSignUp,
   signUp,
   loadSignIn,
   signIn,
-  Logout,
+  logOut,
   loadOtp,
   resendOtp,
   loadHome,

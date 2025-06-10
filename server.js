@@ -34,6 +34,13 @@ app.use(session({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+const noCache = (req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+};
+
+app.use(["/login", "/signup"], noCache);
+
 // Routes
 app.use('/', userRoute);
 
