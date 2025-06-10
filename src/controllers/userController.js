@@ -168,41 +168,8 @@ console.log(userEnteredOTP,storedOTP,email);
   }
 };
 
-const loadSignIn = (req, res) => {
-  res.status(200).render("user/usersignin", {
-    error: req.flash("error"),
-    googleClientId: process.env.GOOGLE_CLIENT_ID,
-  });
-};
 
-const signIn = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await userSchema.findOne({ email });
 
-    if (!user) {
-      req.flash("error", "User not found!");
-      return res.status(404).redirect("/signin");
-    }
-
-    if (user.isBan) {
-      req.flash("error", "User Banned By Admin!");
-      return res.status(403).redirect("/signin");
-    }
-
-    if (!(await bcrypt.compare(password, user.password))) {
-      req.flash("error", "Incorrect Password!");
-      return res.status(401).redirect("/signin");
-    }
-
-    req.session.details = { email };
-    req.session.logged = true;
-    res.status(302).redirect("/");
-  } catch (error) {
-    console.error("Signin error:", error);
-    res.status(500).send("Server Error");
-  }
-};
 
 const Logout = (req, res) => {
   req.session.destroy();
@@ -230,7 +197,6 @@ module.exports = {
   loadSignUp,
   signUp,
   loadSignIn,
-  signIn,
   logOut,
   loadOtp,
   resendOtp,
