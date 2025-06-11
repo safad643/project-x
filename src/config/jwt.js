@@ -5,7 +5,7 @@ const generateOTPToken = (email, otp, type) => {
   return jwt.sign(
     { email, otp, type },
     process.env.JWT_SECRET,
-    { expiresIn: '5m' } 
+    { expiresIn: '1m' } 
   );
 };
 

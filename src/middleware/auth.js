@@ -37,5 +37,16 @@ const preventAuthAccess = (req, res, next) => {
 };
 
 
+const preventCache = (req, res, next) => {
+  res.set({
+    'Cache-Control': 'no-store',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+  });
+  next();
+};
 
-module.exports = { protect ,preventAuthAccess};
+
+
+
+module.exports = { protect ,preventAuthAccess ,preventCache};
