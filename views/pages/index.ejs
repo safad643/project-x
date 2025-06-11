@@ -543,7 +543,7 @@
 
         // ===== SIGNIN FORM HANDLER =====
         if (signinForm) {
-          console.log("loginData");
+         
 
           signinForm.addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -572,9 +572,9 @@
 
 
               if (response.data.success) {
-                // Success - store token and redirect
+                
                 if (response.data.token) {
-                  console.log("qqqqqqqq");
+                
 
                   localStorage.setItem("token", response.data.token);
                   axios.defaults.headers.common[
@@ -639,7 +639,7 @@
             submitBtn.disabled = true;
 
             try {
-              const response = await axios.post("/login", signupData);
+              const response = await axios.post("/register", signupData);
 
               if (response.data.success) {
                 currentUserEmail = signupData.email;
@@ -700,7 +700,7 @@
             }
 
             try {
-              const response = await axios.post("/auth/forgot-password", {
+              const response = await axios.post("/forgot-password", {
                 email: emailInput.value,
               });
 
@@ -800,7 +800,7 @@
             submitBtn.disabled = true;
 
             try {
-              const response = await axios.post("/login", {
+              const response = await axios.post("/verify_otp", {
                 name: "otp",
                 email: currentUserEmail,
                 otp: otp,
