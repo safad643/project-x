@@ -27,14 +27,16 @@ const signUp = async (req, res) => {
     
   
     const user = await userSchema.findOne({ email });
+    console.log(user);
+    
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(200).json({ success:false,message: 'Invalid credentials' });
     }
     
    
     const isMatch = await bcrypt.compare(password,user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(200).json({success:false, message: 'Invalid credentials' });
     }
     
    
@@ -70,6 +72,15 @@ const signUp = async (req, res) => {
         confirmPassword,
         subscriptionIn ,
       } = req.body;
+
+
+        const existingUser = await userSchema.findOne({ email });
+        console.log(existingUser);
+        
+    if (existingUser && existingUser.email_verifired) {
+      req.flash("success", "User already exists.");
+      return res.status(409).redirect("/signup");
+    }
 
       const otp = generateOTP();
 
@@ -110,16 +121,16 @@ const signUp = async (req, res) => {
     const otpToken = req.cookies.otpToken;
 
     if (!otpToken) {
-      req.flash("error", "OTP session expired. Please try again.");
-      return res.status(400).redirect("/index-view");
+      
+      return res.status(200).json({ success:false,message: 'OTP Not Sended ' });
     }
 
     
     const decoded = verifyOTPToken(otpToken);
     
     if (!decoded) {
-      req.flash("error", "Invalid or expired OTP token.");
-      return res.status(400).redirect("/signup");
+     
+      return res.status(200).json({ success:false,message: 'Invalid or expired OTP token.' });
     }
  
     const { email, otp: storedOTP, type } = decoded;
@@ -130,8 +141,7 @@ console.log(userEnteredOTP,storedOTP,email);
     if (userEnteredOTP != storedOTP) {
         console.log("mmm");
         
-      req.flash("error", "Invalid OTP. Please try again.");
-      return res.status(400).redirect("/index-view");
+      return res.status(200).json({ success:false,message: 'Invalid or expired OTP token.' });
     }
 
     
@@ -196,7 +206,6 @@ const logOut = async(req,res)=>{
 module.exports = {
   loadSignUp,
   signUp,
-  loadSignIn,
   logOut,
   loadOtp,
   resendOtp,

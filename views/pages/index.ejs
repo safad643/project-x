@@ -223,6 +223,7 @@
         <div class="logo">
           <h1>SubShare</h1>
           <p>Connect. Share. Save Together.</p>
+        
         </div>
 
         <div class="forms-wrapper">
@@ -243,6 +244,7 @@
                 aria-labelledby="login-tab"
               >
                 <h2>Welcome Back</h2>
+                 <p style="color: red" id="login_error"></p>
                 <form id="signin-form">
                   <div class="input-group">
                     <i class="fas fa-envelope"></i>
@@ -346,6 +348,9 @@
                 code below to verify your account.
               </p>
 
+
+             
+
               <form id="otp-form">
                 <div class="otp-container">
                   <div class="otp-fields">
@@ -414,7 +419,7 @@
 
                 <button
                   type="submit"
-                  class="btn otp-btn-spacing"
+                  class="btn otp-btn-spacing "
                   id="otp-submit-btn"
                 >
                   Verify Account
@@ -558,6 +563,7 @@
 
               const response = await axios.post("/index-view", loginData);
 
+
               if (response.data.success) {
                 // Success - store token and redirect
                 if (response.data.token) {
@@ -577,36 +583,24 @@
                   window.location.href = "/";
                 }, 1500);
               } else {
-                console.log("erro");
 
-                throw new Error(response.data.message || "Login failed");
+                console.log("ddddd");
+                 const submitBtn = this.querySelector(".btn");
+                const errorData = document.getElementById("login_error")
+                errorData.innerHTML=response.data.message
+              submitBtn.innerHTML = "Login";
+              submitBtn.disabled = false;
+              submitBtn.style.backgroundColor = "";
+               
+               
+              
+               
+                
+
+                
               }
             } catch (error) {
-              console.error("Signin error:", error);
-
-              if (error.response && error.response.data) {
-                const errorData = error.response.data;
-
-                if (errorData.errors) {
-                  // Handle field-specific errors
-                  errorData.errors.forEach((err) => {
-                    const field = this.querySelector(`[name="${err.field}"]`);
-                    if (field) {
-                      showError(field, err.message);
-                    }
-                  });
-                } else {
-                  showError(
-                    this.querySelector('[name="email"]'),
-                    errorData.message || "Invalid credentials"
-                  );
-                }
-              } else {
-                showError(
-                  this.querySelector('[name="email"]'),
-                  "Network error. Please try again."
-                );
-              }
+              console.lo("Signin error:", error);
 
               submitBtn.innerHTML = "Login";
               submitBtn.disabled = false;
@@ -836,7 +830,11 @@
                   }, 1000);
                 }
               } else {
-                throw new Error(response.data.message || "Verification failed");
+                let errorMessage = document.getElementById("otp_error")
+                errorMessage.innerHTML =response.data.message
+                 submitBtn.disabled = false;
+
+            submitBtn.innerHTML = "  Verify Account"
               }
             } catch (error) {
               console.error("OTP verification error:", error);
