@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#5461FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SubShare - Connect & Save</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Add Axios CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
+    <style>
+        /* OTP verification styles */
+        .otp-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .otp-fields {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+        
+        .otp-field {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            background-color: var(--input-bg);
+            font-size: 1.5rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+        
+        .otp-field:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(84, 97, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .timer {
+            margin-top: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .timer i {
+            color: var(--primary-color);
+        }
+        
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .resend-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .resend-btn:disabled {
+            color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .back-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        .otp-btn-spacing {
+            margin-top: 2.5rem;
+        }
+        
+        .form-slide-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #otp-verification-form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            z-index: 10;
+        }
+        
+        #register-form.sliding-out {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        #login-form.sliding-out {
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        #otp-verification-form.sliding-in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .otp-field {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .otp-fields {
+                gap: 0.5rem;
+            }
+            
+            .otp-field {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .otp-fields {
+                gap: 0.3rem;
+            }
+            
+            .otp-field {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
+
+        .error-input {
+            border-color: var(--danger-color) !important;
+            background-color: rgba(255, 78, 110, 0.05);
+        }
+        
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            padding-left: 2rem;
+            display: block;
+            font-weight: 500;
+        }
+        
+        .success-message {
+            color: var(--success-color);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            padding-left: 2rem;
+            display: block;
+            font-weight: 500;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake-animation {
+            animation: shake 0.5s ease;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-switch" aria-label="Toggle dark mode">
+            <i class="fas fa-moon dark-icon"></i>
+            <i class="fas fa-sun light-icon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="forms-container">
+            <div class="logo">
+                <h1>SubShare</h1>
+                <p>Connect. Share. Save Together.</p>
+            </div>
+            
+            <div class="forms-wrapper">
+                <div class="form-tabs">
+                    <button id="login-tab" class="active" aria-selected="true">Login</button>
+                    <button id="register-tab" aria-selected="false">Register</button>
+                </div>
+                
+                <div class="form-slide-container">
+                    <div class="forms-slider">
+                        <!-- LOGIN FORM -->
+                        <div id="login-form" class="form" role="tabpanel" aria-labelledby="login-tab">
+                            <h2>Welcome Back</h2>
+                            <form id="signin-form">
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+                                </div>
+                                <div class="forgot-password">
+                                    <a href="#" id="forgot-password-link">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="btn">Login</button>
+                            </form>
+                        </div>
+                        
+                        <!-- REGISTER FORM -->
+                        <div id="register-form" class="form" role="tabpanel" aria-labelledby="register-tab">
+                            <h2>Join Our Community</h2>
+                            <form id="signup-form">
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" name="fullName" placeholder="Full Name" autocomplete="name" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" name="confirmPassword" placeholder="Confirm Password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group">
+                                    <i class="fas fa-tag"></i>
+                                    <select name="subscriptionInterests" required>
+                                        <option value="" disabled selected>Subscription Interests</option>
+                                        <option value="streaming">Streaming Services</option>
+                                        <option value="music">Music Services</option>
+                                        <option value="gaming">Gaming Services</option>
+                                        <option value="productivity">Productivity Apps</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- OTP VERIFICATION FORM -->
+                    <div id="otp-verification-form" class="form">
+                        <h2>Verify Your Account</h2>
+                        <p style="margin-bottom: 1.5rem; color: var(--secondary-color);">We've sent a 6-digit verification code to your email. Enter the code below to verify your account.</p>
+                        
+                        <form id="otp-form">
+                            <div class="otp-container">
+                                <div class="otp-fields">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                    <input type="text" class="otp-field" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                                </div>
+                                
+                                <div class="timer">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="countdown">05:00</span>
+                                </div>
+                                
+                                <button type="button" class="resend-btn" id="resend-btn" disabled>
+                                    Resend Code
+                                </button>
+                                
+                                <button type="button" class="back-btn" id="back-to-login-btn">
+                                    <i class="fas fa-arrow-left"></i> Back to Login
+                                </button>
+                            </div>
+                            
+                            <button type="submit" class="btn otp-btn-spacing" id="otp-submit-btn">Verify Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-login">
+                <p>Or continue with</p>
+                <div class="social-icons">
+                    <button aria-label="Sign in with Google"><i class="fab fa-google"></i></button>
+                    <button aria-label="Sign in with Facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button aria-label="Sign in with Apple"><i class="fab fa-apple"></i></button>
+                </div>
+            </div>
+            
+            <div class="about-site-container">
+                <button id="about-site-btn" class="btn about-site-btn">
+                    <i class="fas fa-info-circle"></i> About SubShare
+                </button>
+            </div>
+        </div>
+        
+        <div class="info-container">
+            <div class="info-content">
+                <h2>Find Your Perfect Subscription Match</h2>
+                <p>Connect with like-minded people and share subscription costs.</p>
+                <div class="features">
+                    <div class="feature-card" data-id="match">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Match with Others</h3>
+                            <p>Find people with similar subscription interests</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="save">
+                        <div class="feature-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Save Money</h3>
+                            <p>Split costs and save up to 75% on premium subscriptions</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="secure">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Safe & Secure</h3>
+                            <p>Verified profiles and secure payment handling</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-id="manage">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="feature-card-text">
+                            <h3>Easy Management</h3>
+                            <p>Hassle-free subscription sharing with automatic reminders</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="close-info-btn" class="btn close-info-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Login
+                </button>
+            </div>
+        </div>
+        
+        <div class="feature-overlay"></div>
+    </div>
+
+    <script src="/js/script.js"></script>
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:3000/api'; // Change this to your backend URL
+        
+        // Configure axios defaults
+        axios.defaults.baseURL = API_BASE_URL;
+        axios.defaults.headers.common['Content-Type'] = 'application/json';
+        
+        // Global variables for OTP
+        let currentUserEmail = '';
+        let isPasswordReset = false;
+        let otpCountdownTimer;
+        let timeLeft = 5 * 60;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get forms and elements
+            const signinForm = document.getElementById('signin-form');
+            const signupForm = document.getElementById('signup-form');
+            const otpForm = document.getElementById('otp-form');
+            const otpVerificationForm = document.getElementById('otp-verification-form');
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+            const formsSlider = document.querySelector('.forms-slider');
+            const formTabs = document.querySelector('.form-tabs');
+            const loginTab = document.getElementById('login-tab');
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+
+            // ===== SIGNIN FORM HANDLER =====
+            if (signinForm) {
+                signinForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.btn');
+                    const formData = new FormData(this);
+                    
+                    const loginData = {
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    };
+
+                    // Clear previous errors
+                    clearAllErrors(this);
+
+                    // Update button state
+                    submitBtn.innerHTML = '<div class="loading-spinner"></div> Signing in...';
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await axios.post('/auth/signin', loginData);
+                        
+                        if (response.data.success) {
+                            // Success - store token and redirect
+                            if (response.data.token) {
+                                localStorage.setItem('token', response.data.token);
+                                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+                            }
+                            
+                            submitBtn.innerHTML = '<i class="fas fa-check"></i> Welcome back!';
+                            submitBtn.style.backgroundColor = 'var(--success-color)';
+                            
+                            showSuccessMessage(this, response.data.message || 'Login successful!');
+                            
+                            setTimeout(() => {
+                                window.location.href = response.data.redirectUrl || '/dashboard';
+                            }, 1500);
+                        } else {
+                            throw new Error(response.data.message || 'Login failed');
+                        }
+                    } catch (error) {
+                        console.error('Signin error:', error);
+                        
+                        if (error.response && error.response.data) {
+                            const errorData = error.response.data;
+                            
+                            if (errorData.errors) {
+                                // Handle field-specific errors
+                                errorData.errors.forEach(err => {
+                                    const field = this.querySelector(`[name="${err.field}"]`);
+                                    if (field) {
+                                        showError(field, err.message);
+                                    }
+                                });
+                            } else {
+                                showError(this.querySelector('[name="email"]'), errorData.message || 'Invalid credentials');
+                            }
+                        } else {
+                            showError(this.querySelector('[name="email"]'), 'Network error. Please try again.');
+                        }
+                        
+                        submitBtn.innerHTML = 'Login';
+                        submitBtn.disabled = false;
+                        submitBtn.style.backgroundColor = '';
+                    }
+                });
+            }
+
+            // ===== SIGNUP FORM HANDLER =====
+            if (signupForm) {
+                signupForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.btn');
+                    const formData = new FormData(this);
+                    
+                    const signupData = {
+                        fullName: formData.get('fullName'),
+                        email: formData.get('email'),
+                        password: formData.get('password'),
+                        confirmPassword: formData.get('confirmPassword'),
+                        subscriptionInterests: formData.get('subscriptionInterests')
+                    };
+
+                    // Clear previous errors
+                    clearAllErrors(this);
+
+                    // Client-side validation
+                    if (!validateSignupForm(signupData, this)) {
+                        return;
+                    }
+
+                    // Update button state
+                    submitBtn.innerHTML = '<div class="loading-spinner"></div> Creating account...';
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await axios.post('/auth/signup', signupData);
+                        
+                        if (response.data.success) {
+                            currentUserEmail = signupData.email;
+                            isPasswordReset = false;
+                            
+                            submitBtn.innerHTML = '<i class="fas fa-check"></i> Account created!';
+                            submitBtn.style.backgroundColor = 'var(--success-color)';
+                            
+                            showSuccessMessage(this, 'Account created! Please verify your email.');
+                            
+                            setTimeout(() => {
+                                showOtpVerification();
+                                // Reset form
+                                this.reset();
+                                submitBtn.innerHTML = 'Create Account';
+                                submitBtn.disabled = false;
+                                submitBtn.style.backgroundColor = '';
+                            }, 1500);
+                        } else {
+                            throw new Error(response.data.message || 'Signup failed');
+                        }
+                    } catch (error) {
+                        console.error('Signup error:', error);
+                        
+                        if (error.response && error.response.data) {
+                            const errorData = error.response.data;
+                            
+                            if (errorData.errors) {
+                                // Handle field-specific errors
+                                errorData.errors.forEach(err => {
+                                    const field = this.querySelector(`[name="${err.field}"]`);
+                                    if (field) {
+                                        showError(field, err.message);
+                                    }
+                                });
+                            } else {
+                                showError(this.querySelector('[name="email"]'), errorData.message || 'Registration failed');
+                            }
+                        } else {
+                            showError(this.querySelector('[name="email"]'), 'Network error. Please try again.');
+                        }
+                        
+                        submitBtn.innerHTML = 'Create Account';
+                        submitBtn.disabled = false;
+                        submitBtn.style.backgroundColor = '';
+                    }
+                });
+            }
+
+            // ===== FORGOT PASSWORD HANDLER =====
+            if (forgotPasswordLink) {
+                forgotPasswordLink.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = loginForm.querySelector('input[type="email"]');
+                    
+                    if (!emailInput.value.trim()) {
+                        showError(emailInput, 'Please enter your email to reset password');
+                        emailInput.focus();
+                        return;
+                    }
+                    
+                    if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        showError(emailInput, 'Please enter a valid email address');
+                        emailInput.focus();
+                        return;
+                    }
+                    
+                    clearError(emailInput);
+                    
+                    try {
+                        const response = await axios.post('/auth/forgot-password', {
+                            email: emailInput.value
+                        });
+                        
+                        if (response.data.success) {
+                            currentUserEmail = emailInput.value;
+                            isPasswordReset = true;
+                            
+                            showSuccessMessage(emailInput.parentElement, 'Password reset code sent to your email!');
+                            
+                            setTimeout(() => {
+                                showOtpVerification(true);
+                            }, 1000);
+                        } else {
+                            throw new Error(response.data.message || 'Failed to send reset code');
+                        }
+                    } catch (error) {
+                        console.error('Forgot password error:', error);
+                        
+                        const errorMessage = error.response?.data?.message || 'Failed to send reset code. Please try again.';
+                        showError(emailInput, errorMessage);
+                    }
+                });
+            }
+
+            // ===== OTP FORM HANDLER =====
+            if (otpForm) {
+                const otpFields = otpForm.querySelectorAll('.otp-field');
+                const resendBtn = document.getElementById('resend-btn');
+                
+                // OTP field navigation
+                otpFields.forEach((field, index) => {
+                    field.addEventListener('input', function(e) {
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                        
+                        if (this.value && index < otpFields.length - 1) {
+                            otpFields[index + 1].focus();
+                        }
+                        
+                        const isComplete = Array.from(otpFields).every(field => field.value);
+                        if (isComplete) {
+                            otpForm.querySelector('.btn[type="submit"]').focus();
+                        }
+                    });
+                    
+                    field.addEventListener('keydown', function(e) {
+                        if (e.key === 'Backspace' && !this.value && index > 0) {
+                            otpFields[index - 1].focus();
+                        }
+                        
+                        if (e.key === 'ArrowLeft' && index > 0) {
+                            e.preventDefault();
+                            otpFields[index - 1].focus();
+                        } else if (e.key === 'ArrowRight' && index < otpFields.length - 1) {
+                            e.preventDefault();
+                            otpFields[index + 1].focus();
+                        }
+                    });
+                });
+                
+                // OTP form submission
+                otpForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    clearOtpErrors();
+                    
+                    const isComplete = Array.from(otpFields).every(field => field.value);
+                    if (!isComplete) {
+                        showOtpError('Please enter the complete 6-digit code');
+                        for (let i = 0; i < otpFields.length; i++) {
+                            if (!otpFields[i].value) {
+                                otpFields[i].focus();
+                                break;
+                            }
+                        }
+                        return;
+                    }
+                    
+                    const otp = Array.from(otpFields).map(field => field.value).join('');
+                    const submitBtn = otpForm.querySelector('.btn[type="submit"]');
+                    
+                    submitBtn.innerHTML = '<div class="loading-spinner"></div> Verifying...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const endpoint = isPasswordReset ? '/auth/verify-reset-otp' : '/auth/verify-otp';
+                        const response = await axios.post(endpoint, {
+                            email: currentUserEmail,
+                            otp: otp
+                        });
+                        
+                        if (response.data.success) {
+                            submitBtn.innerHTML = '<i class="fas fa-check"></i> Verified!';
+                            submitBtn.style.backgroundColor = 'var(--success-color)';
+                            
+                            if (isPasswordReset) {
+                                // Redirect to password reset page with token
+                                setTimeout(() => {
+                                    window.location.href = `/reset-password?token=${response.data.resetToken}`;
+                                }, 1000);
+                            } else {
+                                // Account verification successful
+                                setTimeout(() => {
+                                    alert('Account verified successfully! You can now login.');
+                                    resetFormsToDefault();
+                                }, 1000);
+                            }
+                        } else {
+                            throw new Error(response.data.message || 'Verification failed');
+                        }
+                    } catch (error) {
+                        console.error('OTP verification error:', error);
+                        
+                        const errorMessage = error.response?.data?.message || 'Invalid or expired code. Please try again.';
+                        showOtpError(errorMessage);
+                        
+                        // Reset button
+                        submitBtn.innerHTML = isPasswordReset ? 'Reset Password' : 'Verify Account';
+                        submitBtn.disabled = false;
+                        submitBtn.style.backgroundColor = '';
+                    }
+                });
+                
+                // Resend OTP
+                if (resendBtn) {
+                    resendBtn.addEventListener('click', async function() {
+                        if (!this.disabled) {
+                            try {
+                                const endpoint = isPasswordReset ? '/auth/resend-reset-otp' : '/auth/resend-otp';
+                                const response = await axios.post(endpoint, {
+                                    email: currentUserEmail
+                                });
+                                
+                                if (response.data.success) {
+                                    // Reset fields and timer
+                                    otpFields.forEach(field => field.value = '');
+                                    otpFields[0].focus();
+                                    clearOtpErrors();
+                                    resetOtpTimer();
+                                    
+                                    alert('A new verification code has been sent to your email.');
+                                } else {
+                                    throw new Error(response.data.message || 'Failed to resend code');
+                                }
+                            } catch (error) {
+                                console.error('Resend OTP error:', error);
+                                alert('Failed to resend code. Please try again.');
+                            }
+                        }
+                    });
+                }
+            }
+
+            // ===== BACK TO LOGIN BUTTON =====
+            const backToLoginBtn = document.getElementById('back-to-login-btn');
+            if (backToLoginBtn) {
+                backToLoginBtn.addEventListener('click', function() {
+                    resetFormsToDefault();
+                });
+            }
+
+        }
+        )

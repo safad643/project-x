@@ -251,16 +251,6 @@ erDiagram
 
 ## Indexes
 
-```javascript
-// Users collection
-db.users.createIndex({ "email": 1 }, { unique: true })
-db.users.createIndex({ "username": 1 }, { unique: true })
-db.users.createIndex({ "is_active": 1 })
-
-// Services collection
-db.services.createIndex({ "service_type": 1 })
-db.services.createIndex({ "is_active": 1 })
-
 // Rooms collection
 db.rooms.createIndex({ "service_id": 1 })
 db.rooms.createIndex({ "creator_id": 1 })
