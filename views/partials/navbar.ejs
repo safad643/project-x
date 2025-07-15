@@ -1,1 +1,36 @@
- 
+ <div class="mobile-nav-backdrop"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-profile">
+                <div class="profile-avatar large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3>Hello, User</h3>
+                    <p>Manage your account</p>
+                </div>
+            </div>
+            <button class="close-mobile-nav" aria-label="Close navigation menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="/homepage-view" ><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="/subscriptions-view"><i class="fas fa-tv"></i>Subscriptions</a></li>
+            <li><a href="/rooms-view"><i class="fas fa-door-open"></i>Rooms</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
+            <li><a href="/contact-view"><i class="fas fa-envelope"></i>Contact</a></li>
+        </ul>
+        <div class="mobile-nav-footer">
+            <div class="mobile-theme-toggle">
+                <span>Dark Mode</span>
+                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+            </div>
+            <div class="mobile-logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </div>
+    </nav>

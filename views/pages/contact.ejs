@@ -12,87 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-container">
-            <!-- Left section with hamburger menu -->
-            <div class="left-section">
-                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="sidebar-logo">
-                    <i class="fas fa-split"></i>
-                    <span>SubSplit</span>
-                </div>
-            </div>
-            
-            <!-- Center section with logo and navigation -->
-            <div class="center-section">
-                <!-- Desktop Navigation -->
-                <nav class="desktop-nav">
-                    <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="#">Subscriptions</a></li>
-                        <li><a href="#">Rooms</a></li>
-                        <li><a href="#">My Rooms</a></li>
-                        <li><a href="contact.html" class="active">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            
-            <!-- Right section with user actions -->
-            <div class="right-section">
-                <div class="user-actions">
-                    <button class="notification-btn" aria-label="Notifications">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">2</span>
-                    </button>
-                    <button class="profile-btn" aria-label="User profile">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Header -->
+
+    <%- include("../partials/header")%>
 
     <!-- Mobile Navigation Sidebar -->
-    <div class="mobile-nav-backdrop"></div>
-    <nav class="mobile-nav">
-        <div class="mobile-nav-header">
-            <div class="mobile-profile">
-                <div class="profile-avatar large">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="profile-info">
-                    <h3>Hello, User</h3>
-                    <p>Manage your account</p>
-                </div>
-            </div>
-            <button class="close-mobile-nav" aria-label="Close navigation menu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <ul class="mobile-nav-links">
-            <li><a href="homepage.html"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="fas fa-tv"></i>Subscriptions</a></li>
-            <li><a href="#"><i class="fas fa-door-open"></i>Rooms</a></li>
-            <li><a href="#"><i class="fas fa-users"></i>My Rooms</a></li>
-            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i>Contact</a></li>
-        </ul>
-        <div class="mobile-nav-footer">
-            <div class="mobile-theme-toggle">
-                <span>Dark Mode</span>
-                <button id="mobile-theme-switch" aria-label="Toggle dark mode">
-                    <i class="fas fa-moon dark-icon"></i>
-                    <i class="fas fa-sun light-icon"></i>
-                </button>
-            </div>
-            <div class="mobile-logout">
-                <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
-            </div>
-        </div>
-    </nav>
+    
+     <%- include("../partials/navbar")%>
 
     <main>
        
@@ -257,72 +183,12 @@
         </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3 class="footer-logo">SubSplit</h3>
-                    <p>Connect. Share. Save Together.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="homepage.html">Home</a></li>
-                        <li><a href="#">Subscriptions</a></li>
-                        <li><a href="#">My Rooms</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Contact Support</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Feedback</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">GDPR Compliance</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; 2023 SubSplit. All rights reserved.</p>
-                </div>
-                <div class="language-selector">
-                    <select>
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                        <option value="de">Deutsch</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <%- include('../partials/footer')%>
 
     <%- include('../partials/notification-modal') %>
 
     <script src="/js/script.js"></script>
     <script src="/js/contact.js"></script>
+    <script src="/js/nav-sync.js"></script>
 </body>
 </html> 

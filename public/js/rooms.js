@@ -12,6 +12,56 @@ document.addEventListener('DOMContentLoaded', function() {
     const roomCards = document.querySelectorAll('.room-card');
     const emptyState = document.getElementById('empty-state');
     const roomsGridSection = document.querySelector('.rooms-grid-section');
+
+
+
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavBackdrop = document.querySelector('.mobile-nav-backdrop');
+    const closeMobileNav = document.querySelector('.close-mobile-nav');
+
+    if (mobileMenuToggle && mobileNav && mobileNavBackdrop && closeMobileNav) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            mobileNavBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeMobileMenu() {
+            mobileNav.classList.remove('active');
+            mobileNavBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+        closeMobileNav.addEventListener('click', closeMobileMenu);
+    }
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('mobile-theme-switch');
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme', 
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+            
+            // Save theme preference
+            localStorage.setItem('theme', document.documentElement.getAttribute('data-theme'));
+        });
+        
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const toggleInput = themeToggle.querySelector('input');
+            if (savedTheme === 'dark' && toggleInput) {
+                toggleInput.checked = true;
+            }
+        }
+    }
+
+
     
     // Required fields and their error messages
     const requiredFields = {
